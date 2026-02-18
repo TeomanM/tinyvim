@@ -15,9 +15,9 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require "plugins.configs.treesitter"
+    build = ":TSUpdate | TSInstallAll",
+    opts = function()
+      return require "plugins.configs.treesitter"
     end,
   },
 
