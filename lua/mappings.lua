@@ -22,12 +22,7 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" }
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
 -- telescope
-map(
-	"n",
-	"<leader>fa",
-	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-	{ desc = "telescope find all files" }
-)
+map("n", "<leader>ff", "<cmd> Telescope find_files <CR>")
 map("n", "<leader>fo", "<cmd> Telescope oldfiles <CR>")
 map("n", "<leader>fw", "<cmd> Telescope live_grep <CR>")
 map("n", "<leader>gt", "<cmd> Telescope git_status <CR>")
@@ -35,7 +30,7 @@ map("n", "<leader>gt", "<cmd> Telescope git_status <CR>")
 -- bufferline, cycle buffers
 map("n", "<Tab>", "<cmd> BufferLineCycleNext <CR>")
 map("n", "<S-Tab>", "<cmd> BufferLineCyclePrev <CR>")
-map("n", "<C-q>", "<cmd> bd <CR>")
+map("n", "<C-x>", "<cmd> bd <CR>")
 
 -- comment.nvim
 map("n", "<leader>/", "gcc", { remap = true })
@@ -43,7 +38,7 @@ map("v", "<leader>/", "gc", { remap = true })
 
 -- format
 map({ "n", "x" }, "<leader>fm", function()
-	require("conform").format({ lsp_fallback = true })
+    require("conform").format({ lsp_fallback = true })
 end, { desc = "general format file" })
 
 -- terminal

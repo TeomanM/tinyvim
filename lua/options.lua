@@ -1,11 +1,14 @@
+local opt = vim.opt
 local o = vim.o
-
-vim.g.mapleader = " "
-
-o.laststatus = 3 -- global statusline
+local g = vim.g
+-------------------------------------- options ------------------------------------------
+o.laststatus = 3
 o.showmode = false
+o.splitkeep = "screen"
 
 o.clipboard = "unnamedplus"
+o.cursorline = true
+o.cursorlineopt = "number"
 
 -- Indenting
 o.expandtab = true
@@ -14,23 +17,64 @@ o.smartindent = true
 o.tabstop = 4
 o.softtabstop = 4
 
-vim.opt.fillchars = { eob = " " }
+opt.fillchars = { eob = " " }
 o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
 
+-- Numbers
 o.number = true
+o.numberwidth = 2
+o.ruler = false
+
+-- disable nvim intro
+opt.shortmess:append "sI"
 
 o.signcolumn = "yes"
 o.splitbelow = true
 o.splitright = true
-o.termguicolors = true
 o.timeoutlen = 400
 o.undofile = true
-o.cursorline = true
+
+-- interval for writing swap file to disk, also used by gitsigns
+o.updatetime = 250
+
+-- go to previous/next line with h,l,left arrow and right arrow
+-- when cursor reaches end/beginning of line
+opt.whichwrap:append "<>[]hl"
+
+-- disable some default providers
+g.loaded_node_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+vim.g.mapleader = " "
+
+o.laststatus = 3 -- global statusline
+o.showmode = false
+
+-- o.termguicolors = true
+
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+})
+
+vim.filetype.add({
+  pattern = { ["Caddyfile"] = "caddy" },
+})
+
+-- No line wraps.
+o.wrap = false
+
+-- Relative line number
+o.number = true
+o.relativenumber = true
+
+-- Tab
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- add binaries installed by mason.nvim to path
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
-
-vim.api.nvim_set_hl(0, "IndentLine", { link = "Comment" })
+local is_windows = vim.fn.has "win32" ~= 0
+local sep = is_windows and "\\" or "/"
+local delim = is_windows and ";" or ":"
+vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
