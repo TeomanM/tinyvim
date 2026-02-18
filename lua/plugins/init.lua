@@ -28,6 +28,12 @@ return {
 		opts = require("plugins.configs.bufferline"),
 	},
 
+	{
+		"folke/which-key.nvim",
+		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+		cmd = "WhichKey",
+	},
+
 	-- we use blink plugin only when in insert mode
 	-- so lets lazyload it at InsertEnter event
 	{
