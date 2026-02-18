@@ -39,6 +39,52 @@ capabilities.textDocument.completion.completionItem = {
 }
 
 vim.lsp.config("*", { capabilities = capabilities })
-local servers = { "html", "cssls", "lua_ls" }
+
+local servers = {
+	"lua_ls",
+	"html",
+	"cssls",
+	"ts_ls",
+	"glsl_analyzer",
+	"clangd",
+	"ruff",
+	"systemd_lsp",
+	"hyprls",
+	"lemminx",
+	"bashls",
+	"oxlint",
+	"oxfmt",
+	"docker_language_server",
+	"taplo",
+	"qmlls",
+	"beautysh",
+	"jsonls",
+	"teal_ls",
+	"yamlls",
+}
+
+local lua_lsp_settings = {
+	Lua = {
+		runtime = { version = "LuaJIT" },
+		workspace = {
+			library = {
+				vim.fn.expand("$VIMRUNTIME/lua"),
+				vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types",
+				vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
+				"${3rd}/luv/library",
+			},
+		},
+	},
+}
+
+vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
+
+vim.lsp.config.qmlls = {
+	cmd = { "qmlls", "-E" },
+}
+
+vim.lsp.config.teal_ls = {
+	cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
+}
 
 vim.lsp.enable(servers)

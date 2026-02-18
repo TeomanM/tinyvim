@@ -5,4 +5,8 @@ return {
 			horizontal = { prompt_position = "top" },
 		},
 	},
+	extensions = {
+		persisted = {},
+		undo = {},
+	},
 }

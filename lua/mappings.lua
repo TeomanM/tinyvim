@@ -6,8 +6,7 @@ map("i", "jk", "<ESC>")
 map("n", "<C-c>", "<cmd> %y+ <CR>") -- copy whole filecontent
 
 -- nvimtree
-map("n", "<C-n>", "<cmd> NvimTreeToggle <CR>")
-map("n", "<C-h>", "<cmd> NvimTreeFocus <CR>")
+map("n", "<leader>e", "<cmd> NvimTreeToggle <CR>")
 
 -- telescope
 map("n", "<leader>ff", "<cmd> Telescope find_files <CR>")
