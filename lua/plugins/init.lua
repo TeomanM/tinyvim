@@ -6,7 +6,12 @@ return {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         lazy = false,
+        --TODO
         opts = {
+            sections = {
+                lualine_c = {"filename", "lsp_status"}
+            },
+            extensions = { "fzf", "lazy", "man", "mason", "neo-tree", "trouble" },
             theme = "auto",
         }
     },
@@ -60,7 +65,7 @@ return {
                     -- filter using buffer options
                     bo = {
                         -- if the file type is one of following, the window will be ignored
-                        filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                        filetype = { "neo-tree", "neo-tree-popup", "notify", "trouble", "NeogitStatus" },
                         -- if the buffer type is one of following, the window will be ignored
                         buftype = { "terminal", "quickfix" },
                     },
@@ -144,7 +149,9 @@ return {
         main = "ibl",
         ---@module "ibl"
         ---@type ibl.config
-        opts = {},
+        opts = {
+            whitespace = { highlight = { "Whitespace", "NonText" } },
+        },
         event = { "BufReadPre", "BufNewFile" },
     },
     -- files finder etc

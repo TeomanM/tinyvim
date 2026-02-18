@@ -1,6 +1,7 @@
+---@type LazyConfig
 return {
     defaults = { lazy = true },
-    install = { colorscheme = { "oxocarbon" } },
+    install = { colorscheme = { "catppuccin-mocha" } },
 
     ui = {
         icons = {
