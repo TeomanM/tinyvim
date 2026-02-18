@@ -53,13 +53,13 @@ local servers = {
 	"lemminx",
 	"bashls",
 	"oxlint",
-	"oxfmt",
+	-- "oxfmt",
 	"docker_language_server",
 	"taplo",
 	"qmlls",
-	"beautysh",
+	-- "beautysh",
 	"jsonls",
-	"teal_ls",
+	-- "teal_ls",
 	"yamlls",
 }
 
@@ -69,8 +69,7 @@ local lua_lsp_settings = {
 		workspace = {
 			library = {
 				vim.fn.expand("$VIMRUNTIME/lua"),
-				vim.fn.stdpath("data") .. "/lazy/ui/nvchad_types",
-				vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
+				"$XDG_DATA_HOME/nvim/lazy",
 				"${3rd}/luv/library",
 			},
 		},
@@ -78,13 +77,11 @@ local lua_lsp_settings = {
 }
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
-
 vim.lsp.config.qmlls = {
 	cmd = { "qmlls", "-E" },
 }
-
 vim.lsp.config.teal_ls = {
 	cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
 }
-
-vim.lsp.enable(servers)
+vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls" })
+return servers

@@ -10,7 +10,9 @@ return {
 	{
 		"nvim-tree/nvim-tree.lua",
 		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		opts = {},
+		opts = function()
+			return require("plugins.configs.nvimtree")
+		end,
 	},
 
 	{
@@ -52,19 +54,22 @@ return {
 			return require("plugins.configs.blink")
 		end,
 	},
-
 	{
-		"williamboman/mason.nvim",
-		build = ":MasonUpdate",
-		cmd = { "Mason", "MasonInstall" },
-		opts = {},
-	},
-
-	{
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("plugins.configs.lspconfig")
-		end,
+		"mason-org/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = require("plugins.configs.lspconfig"),
+			automatic_enable = {
+				exclude = {
+					"lua_ls",
+					"qmlls",
+					"teal_ls",
+				},
+			},
+		},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
 	},
 
 	{
