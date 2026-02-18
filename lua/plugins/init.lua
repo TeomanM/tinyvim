@@ -11,16 +11,63 @@ return {
         }
     },
     { "lewis6991/gitsigns.nvim", opts = {}, lazy = false },
-
     {
-        "nvim-tree/nvim-tree.lua",
-        cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-        opts = function()
-            return require("plugins.configs.nvimtree")
-        end,
-        lazy = false,
+        'nvim-neo-tree/neo-tree.nvim',
+        branch = 'v3.x',
+        ---@type neotree.Config
+        opts = {
+            hide_root_node = true,
+            retain_hidden_root_indent = true,
+            filesystem = {
+                filtered_items = {
+                    show_hidden_count = false,
+                    never_show = {
+                        '.DS_Store',
+                    },
+                },
+            },
+            default_component_configs = {
+                indent = {
+                    with_expanders = true,
+                    expander_collapsed = '',
+                    expander_expanded = '',
+                },
+            },
+        },
+        keys = {
+            { "<leader>e", "<cmd>Neotree<cr>",        desc = "Open Neotree" },
+            { "<C-n>",     "<cmd>Neotree toggle<CR>", desc = "Neotree Toggle" }
+        }
     },
-
+    {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+    {
+        "s1n7ax/nvim-window-picker",
+        version = "2.*",
+        config = function()
+            require("window-picker").setup({
+                filter_rules = {
+                    include_current_win = false,
+                    autoselect_one = true,
+                    -- filter using buffer options
+                    bo = {
+                        -- if the file type is one of following, the window will be ignored
+                        filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                        -- if the buffer type is one of following, the window will be ignored
+                        buftype = { "terminal", "quickfix" },
+                    },
+                },
+            })
+        end,
+    },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate | TSInstallAll",
@@ -92,13 +139,14 @@ return {
         "stevearc/conform.nvim",
         opts = require("plugins.configs.conform"),
     },
-
     {
-        "nvimdev/indentmini.nvim",
-        event = { "BufReadPre", "BufNewFile" },
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
         opts = {},
+        event = { "BufReadPre", "BufNewFile" },
     },
-
     -- files finder etc
     {
         "nvim-telescope/telescope.nvim",
@@ -294,10 +342,7 @@ return {
         "olimorris/persisted.nvim",
         event = "BufReadPre", -- Ensure the plugin loads only when a buffer has been loaded
         opts = {
-            autoload = true,
-            on_autoload_no_session = function()
-                vim.notify("No existing session to load.")
-            end,
+            autoload = false,
         },
         init = function()
             require("telescope").load_extension("persisted")
