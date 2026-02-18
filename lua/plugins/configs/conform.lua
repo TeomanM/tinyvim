@@ -1,6 +1,6 @@
 return {
-  formatters_by_ft = {
-    lua = { "stylua" },
-    javascript = { "prettier" },
-  },
+	formatters_by_ft = {
+		lua = { "stylua" },
+		javascript = { "prettier" },
+	},
 }
