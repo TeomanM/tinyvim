@@ -1,3 +1,4 @@
+---@type bufferline.Options
 return {
     options = {
         themable = true,

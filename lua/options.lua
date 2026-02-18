@@ -53,14 +53,14 @@ vim.g.mapleader = " "
 o.laststatus = 3 -- global statusline
 o.showmode = false
 
--- o.termguicolors = true
+o.termguicolors = true
 
 vim.filetype.add({
-  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+    pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
 })
 
 vim.filetype.add({
-  pattern = { ["Caddyfile"] = "caddy" },
+    pattern = { ["Caddyfile"] = "caddy" },
 })
 
 -- No line wraps.
