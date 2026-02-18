@@ -1,3 +1,4 @@
+---@type conform.setupOpts
 return {
     formatters = {
         caddy = {

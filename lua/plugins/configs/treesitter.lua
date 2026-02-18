@@ -1,3 +1,4 @@
+---@type MasonConfig
 return {
     ensure_installed = {
         "vim",
