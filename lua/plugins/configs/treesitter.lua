@@ -30,6 +30,7 @@ return {
         "ron",
         "zsh",
         "bash",
+        "regex",
         "commonlisp",
         "nix",
         "qmljs",
