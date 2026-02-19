@@ -29,10 +29,10 @@ map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidd
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 map(
-    "n",
-    "<leader>fa",
-    "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-    { desc = "telescope find all files" }
+	"n",
+	"<leader>fa",
+	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+	{ desc = "telescope find all files" }
 )
 -- bufferline, cycle buffers
 map("n", "<Tab>", "<cmd> BufferLineCycleNext <CR>")
@@ -45,7 +45,7 @@ map("v", "<leader>/", "gc", { remap = true })
 
 -- format
 map({ "n", "x" }, "<leader>fm", function()
-    require("conform").format({ lsp_fallback = true })
+	require("conform").format({ lsp_fallback = true })
 end, { desc = "general format file" })
 
 -- terminal
@@ -54,12 +54,11 @@ map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 -- whichkey
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
-
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map(
-    "n",
-    "<leader>fs",
-    "<cmd>Telescope find_files search_dirs={'/usr/share/doc'}<cr>",
-    { desc = "Telescope Search Docs" }
+	"n",
+	"<leader>fs",
+	"<cmd>Telescope find_files search_dirs={'/usr/share/doc'}<cr>",
+	{ desc = "Telescope Search Docs" }
 )
 map("n", "<leader>mp", "<cmd>Telescope man_pages sections={'ALL'}<cr>", { desc = "Telescope Search Manpages" })
