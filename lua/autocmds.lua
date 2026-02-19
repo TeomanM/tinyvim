@@ -1,4 +1,4 @@
----> NeoTree, NeoGit and various dynamic plugins can't be saved
+---> NeoTree, NeoGit, Trouble and various dynamic plugins can't be saved
 ---> in session persistance
 ---> This autocmd deletes them right before saving
 vim.api.nvim_create_autocmd("User", {
@@ -10,5 +10,12 @@ vim.api.nvim_create_autocmd("User", {
                 vim.api.nvim_buf_delete(buf, { force = true })
             end
         end
+    end,
+})
+
+---> Open QF list in trouble
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+    callback = function()
+        vim.cmd([[Trouble qflist open]])
     end,
 })

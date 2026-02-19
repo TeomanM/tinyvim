@@ -84,4 +84,7 @@ vim.lsp.config.teal_ls = {
     cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
 }
 vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls" })
+vim.diagnostic.config({
+    virtual_text = true
+})
 return servers
