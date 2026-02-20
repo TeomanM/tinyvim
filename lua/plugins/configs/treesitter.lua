@@ -1,4 +1,4 @@
----@type MasonConfig
+---@type MasonLspconfigSettings
 return {
 	ensure_installed = {
 		"vim",
