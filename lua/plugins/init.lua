@@ -2,6 +2,7 @@
 return {
 	{ "nvim-lua/plenary.nvim" },
 	{ "nvim-tree/nvim-web-devicons", opts = {}, lazy = false },
+	{ "nvim-mini/mini.icons", version = false },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -13,12 +14,7 @@ return {
 		---@type ErgoTermConfig
 		opts = {
 			terminal_defaults = {
-				layout = "right",
 				auto_scroll = true,
-				name = "Terminal",
-				float_opts = {
-					title = "Terminal",
-				},
 				persist_mode = true,
 				size = {
 					above = "25%",
@@ -107,6 +103,8 @@ return {
 			},
 
 			{ "windwp/nvim-autopairs", opts = {} },
+			{ "onsails/lspkind.nvim" },
+			{ "nvim-mini/mini.icons", version = false },
 		},
 		-- made opts a function cuz cmp config calls cmp module
 		-- and we lazyloaded cmp so we dont want that file to be read on startup!
@@ -116,6 +114,7 @@ return {
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
+		---@type MasonLspconfigSettings
 		opts = {
 			ensure_installed = require("plugins.configs.lspconfig"),
 			automatic_enable = {

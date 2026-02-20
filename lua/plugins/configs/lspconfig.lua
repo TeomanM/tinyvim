@@ -1,3 +1,7 @@
+vim.diagnostic.config({
+	virtual_text = false,
+	virtual_lines = true,
+})
 -- Use LspAttach autocommand to only map the following keys
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -18,6 +22,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+-- These are taken directly from blink.cmp I think
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem = {
@@ -54,13 +59,10 @@ local servers = {
 	"lemminx",
 	"bashls",
 	"oxlint",
-	-- "oxfmt",
 	"docker_language_server",
 	"taplo",
 	"qmlls",
-	-- "beautysh",
 	"jsonls",
-	-- "teal_ls",
 	"yamlls",
 }
 
@@ -85,7 +87,4 @@ vim.lsp.config.teal_ls = {
 	cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
 }
 vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls" })
-vim.diagnostic.config({
-	virtual_text = true,
-})
 return servers
