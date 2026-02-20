@@ -1,4 +1,4 @@
----@type LazySpec
+---@type LazyPluginSpec[]
 return {
 	{ "nvim-lua/plenary.nvim" },
 	{ "nvim-tree/nvim-web-devicons", opts = {}, lazy = false },
@@ -84,8 +84,12 @@ return {
 
 	{
 		"folke/which-key.nvim",
+		event = "VeryLazy",
+		---@type wk.Opts
+		opts = {
+			preset = "modern",
+		},
 		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
-		cmd = "WhichKey",
 	},
 
 	{
@@ -326,9 +330,9 @@ return {
 	-- Lua
 	{
 		"olimorris/persisted.nvim",
-		event = "BufReadPre", -- Ensure the plugin loads only when a buffer has been loaded
+		event = "BufReadPre",
 		opts = {
-			autoload = false,
+			use_git_branch = true,
 		},
 		init = function()
 			require("telescope").load_extension("persisted")

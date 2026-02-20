@@ -2,7 +2,6 @@
 return {
 	snippets = { preset = "luasnip" },
 	cmdline = { enabled = true },
-
 	keymap = {
 		preset = "default",
 		["<CR>"] = { "accept", "fallback" },
