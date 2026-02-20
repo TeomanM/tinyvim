@@ -6,61 +6,35 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		lazy = false,
-		--TODO
+		opts = require("plugins.configs.lualine"),
+	},
+	{
+		"waiting-for-dev/ergoterm.nvim",
+		---@type ErgoTermConfig
 		opts = {
-			sections = {
-				lualine_c = { "filename", "lsp_status" },
+			terminal_defaults = {
+				layout = "right",
+				auto_scroll = true,
+				name = "Terminal",
+				float_opts = {
+					title = "Terminal",
+				},
+				persist_mode = true,
+				size = {
+					above = "25%",
+					below = "25%",
+					left = "25%",
+					right = "25%",
+				},
 			},
-			extensions = { "fzf", "lazy", "man", "mason", "neo-tree", "trouble", "quickfix" },
-			theme = "auto",
 		},
+		keys = require("plugins.configs.ergoterm"),
 	},
 	{ "lewis6991/gitsigns.nvim", opts = {}, lazy = false },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
-		---@type neotree.Config
-		opts = {
-			close_if_last_window = true,
-			hide_root_node = true,
-			retain_hidden_root_indent = true,
-			enable_cursor_hijack = true,
-
-			filesystem = {
-				filtered_items = {
-					show_hidden_count = false,
-				},
-			},
-			default_component_configs = {
-				diagnostics = {
-					symbols = {
-						hint = "",
-						info = "",
-						warn = "",
-						error = "",
-					},
-				},
-				git_status = {
-					symbols = {
-						untracked = "",
-					},
-					align = "left",
-				},
-				icon = {
-					default = "󰈚",
-					folder_closed = "",
-					folder_empty = "",
-					folder_empty_open = "󰞹",
-					folder_open = "",
-					use_filtered_colors = true,
-				},
-				indent = {
-					with_expanders = true,
-					expander_collapsed = "",
-					expander_expanded = "",
-				},
-			},
-		},
+		opts = require("plugins.configs.neotree"),
 		keys = {
 			{ "<leader>e", "<cmd>Neotree<cr>", desc = "Open Neotree" },
 			{ "<C-n>", "<cmd>Neotree toggle<CR>", desc = "Neotree Toggle" },
@@ -80,6 +54,7 @@ return {
 		"s1n7ax/nvim-window-picker",
 		version = "2.*",
 		config = function()
+			---@diagnostic disable-next-line: undefined-field
 			require("window-picker").setup({
 				filter_rules = {
 					include_current_win = false,
@@ -117,15 +92,12 @@ return {
 		cmd = "WhichKey",
 	},
 
-	-- we use blink plugin only when in insert mode
-	-- so lets lazyload it at InsertEnter event
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
 		event = "InsertEnter",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-
 			-- snippets engine
 			{
 				"L3MON4D3/LuaSnip",
@@ -134,7 +106,6 @@ return {
 				end,
 			},
 
-			-- autopairs , autocompletes ()[] etc
 			{ "windwp/nvim-autopairs", opts = {} },
 		},
 		-- made opts a function cuz cmp config calls cmp module
@@ -193,9 +164,6 @@ return {
 		keys = {
 			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "󰊢 Show Neogit UI " },
 		},
-		-- opts = {
-		-- 	kind = "auto",
-		-- },
 	},
 	{
 		"mrcjkb/rustaceanvim",
@@ -241,9 +209,6 @@ return {
 			{ "<leader>pr", "<cmd>LivePreview start<cr>", desc = "Start LivePreview server" },
 		},
 		ft = { "markdown", "html", "asciidoc", "svg" },
-		opts = {
-			dynamic_root = true,
-		},
 	},
 	{
 		"michaelb/sniprun",
@@ -346,16 +311,10 @@ return {
 		opts = {},
 	},
 	{
-		"zion-off/mole.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		opts = {},
-	},
-	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		---@type Flash.Config
 		opts = {},
-
 		keys = function()
 			return require("plugins.configs.flash")
 		end,
@@ -363,8 +322,7 @@ return {
 
 	{
 		"aronjohanns/smooth-resize.nvim",
-		opts = {},
-		lazy = false,
+		event = "WinResized",
 	},
 	-- Lua
 	{
@@ -418,5 +376,14 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
+		---@type CatppuccinOptions
+		opts = {
+			auto_integrations = true,
+			float = {
+				transparent = true,
+				solid = false,
+			},
+			term_colors = true,
+		},
 	},
 }

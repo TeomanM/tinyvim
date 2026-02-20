@@ -62,3 +62,8 @@ map(
 	{ desc = "Telescope Search Docs" }
 )
 map("n", "<leader>mp", "<cmd>Telescope man_pages sections={'ALL'}<cr>", { desc = "Telescope Search Manpages" })
+
+local opts = { noremap = true, silent = true }
+local keymap = vim.api.nvim_set_keymap
+
+keymap("n", "<esc>", ":noh<cr>", opts)

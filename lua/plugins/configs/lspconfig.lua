@@ -41,6 +41,7 @@ capabilities.textDocument.completion.completionItem = {
 vim.lsp.config("*", { capabilities = capabilities })
 
 local servers = {
+	"stylua",
 	"lua_ls",
 	"html",
 	"cssls",

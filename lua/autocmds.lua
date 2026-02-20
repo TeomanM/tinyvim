@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 			local ft = vim.bo[buf].filetype
-			if ft == "neo-tree" or ft == "NeogitStatus" or ft == "trouble" then
+			if ft == "neo-tree" or ft == "NeogitStatus" or ft == "trouble" or ft == "ergoterm" then
 				vim.api.nvim_buf_delete(buf, { force = true })
 			end
 		end
