@@ -64,6 +64,7 @@ local servers = {
 	"qmlls",
 	"jsonls",
 	"yamlls",
+	"jdtls",
 }
 
 local lua_lsp_settings = {

@@ -1,8 +1,5 @@
 ---@type neotree.Config
 return {
-	close_if_last_window = true,
-	-- hide_root_node = true,
-	-- retain_hidden_root_indent = true,
 	enable_cursor_hijack = true,
 	auto_clean_after_session_restore = true,
 	clipboard = {

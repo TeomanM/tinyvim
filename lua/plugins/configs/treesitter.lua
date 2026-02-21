@@ -9,7 +9,6 @@ return {
 		"hyprlang",
 		"glsl",
 		"caddy",
-		"kdl",
 		"toml",
 		"xml",
 		"rust",
@@ -36,5 +35,6 @@ return {
 		"nix",
 		"qmljs",
 		"teal",
+		"java",
 	},
 }

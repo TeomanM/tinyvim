@@ -7,7 +7,6 @@ return {
 			stdin = true,
 		},
 	},
-
 	formatters_by_ft = {
 		lua = { "stylua" },
 		css = { "oxfmt" },
