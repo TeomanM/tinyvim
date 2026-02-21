@@ -19,3 +19,14 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 		vim.cmd([[Trouble qflist open]])
 	end,
 })
+
+vim.api.nvim_create_autocmd("DirChanged", {
+	callback = function()
+		local ergo = require("ergoterm")
+		local terminals = ergo.get_all()
+		for _, terminal in pairs(terminals) do
+			terminal:send({ ("cd %s").format(vim.fn.getcwd()) }, { action = "start" })
+			terminal:clear("start")
+		end
+	end,
+})
