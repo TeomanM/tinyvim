@@ -28,6 +28,7 @@ return {
 		"kdl",
 		"zsh",
 		"ron",
+        "rasi",
 		"zsh",
 		"bash",
 		"regex",
