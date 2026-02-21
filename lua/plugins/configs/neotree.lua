@@ -1,7 +1,15 @@
 ---@type neotree.Config
 return {
 	enable_cursor_hijack = true,
-	auto_clean_after_session_restore = true,
+	open_files_do_not_replace_types = {
+		"terminal",
+		"ergoterm",
+		"Trouble",
+		"qf",
+		"edgy",
+	},
+	open_files_in_last_window = false,
+	-- auto_clean_after_session_restore = true,
 	clipboard = {
 		sync = "universal",
 	},
