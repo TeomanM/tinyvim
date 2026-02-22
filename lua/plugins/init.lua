@@ -74,7 +74,11 @@ return {
 		end,
 		lazy = false,
 	},
-
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		opts = {},
+		lazy = false,
+	},
 	{
 		"akinsho/bufferline.nvim",
 		opts = require("plugins.configs.bufferline"),
@@ -155,6 +159,24 @@ return {
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		opts = require("plugins.configs.telescope"),
+		dependencies = {
+			"BurntSushi/ripgrep",
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+	},
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = {
+			"nvim-mini/mini.icons",
+			"nvim-treesitter/nvim-treesitter-context",
+			"MeanderingProgrammer/render-markdown.nvim",
+		},
+		---@module "fzf-lua"
+		---@type fzf-lua.Config|{}
+		---@diagnostic disable: missing-fields
+		opts = {},
 	},
 	{
 		"NeogitOrg/neogit",

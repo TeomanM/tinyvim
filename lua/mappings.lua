@@ -55,13 +55,18 @@ map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map(
-	"n",
-	"<leader>fs",
-	"<cmd>Telescope find_files search_dirs={'/usr/share/doc'}<cr>",
-	{ desc = "Telescope Search Docs" }
-)
-map("n", "<leader>mp", "<cmd>Telescope man_pages sections={'ALL'}<cr>", { desc = "Telescope Search Manpages" })
+
+map("n", "<leader>fs", function()
+	require("fzf-lua").files()
+	FzfLua.files({
+		cwd = "/usr/share/doc/",
+	})
+end, { desc = "Fzf Search Docs" })
+
+map("n", "<leader>mp", function()
+	require("fzf-lua").files()
+	FzfLua.manpages()
+end, { desc = "Fzf Search Manpages" })
 
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
