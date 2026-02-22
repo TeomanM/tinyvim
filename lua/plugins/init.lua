@@ -29,7 +29,7 @@ return {
 	{ "lewis6991/gitsigns.nvim", opts = {}, lazy = false },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
+		branch = "main",
 		opts = require("plugins.configs.neotree"),
 		keys = {
 			{ "<leader>e", "<cmd>Neotree<cr>", desc = "Open Neotree" },
