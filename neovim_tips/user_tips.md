@@ -1,2 +1,1 @@
 # Your personal Neovim tips
-
