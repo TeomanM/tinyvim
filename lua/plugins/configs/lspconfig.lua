@@ -75,6 +75,7 @@ local lua_lsp_settings = {
 				vim.fn.expand("$VIMRUNTIME/lua"),
 				"$XDG_DATA_HOME/nvim/lazy",
 				"${3rd}/luv/library",
+				"$XDG_CONFIG_HOME/mpv/types",
 			},
 		},
 	},
@@ -87,5 +88,10 @@ vim.lsp.config.qmlls = {
 vim.lsp.config.teal_ls = {
 	cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
 }
-vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls" })
+vim.lsp.config.nimls = {
+	cmd = { "/home/teoman/.nimble/bin/nimlsp" },
+}
+
+vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls", "nimls" })
+
 return servers

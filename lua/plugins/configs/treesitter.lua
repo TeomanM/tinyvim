@@ -37,5 +37,6 @@ return {
 		"qmljs",
 		"teal",
 		"java",
+		"nim",
 	},
 }

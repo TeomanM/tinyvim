@@ -7,7 +7,7 @@ return {
 		lualine_c = { "filename", "lsp_status", "hostname" },
 	},
 	extensions = {
-		"fzf",
+		-- "fzf",
 		"lazy",
 		"man",
 		"mason",

@@ -130,6 +130,7 @@ return {
 					"lua_ls",
 					"qmlls",
 					"teal_ls",
+					"nimls",
 				},
 			},
 		},
@@ -139,7 +140,7 @@ return {
 		},
 		lazy = false,
 	},
-
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{
 		"stevearc/conform.nvim",
 		opts = require("plugins.configs.conform"),
@@ -171,12 +172,14 @@ return {
 		dependencies = {
 			"nvim-mini/mini.icons",
 			"nvim-treesitter/nvim-treesitter-context",
+			"mfussenegger/nvim-dap",
 			"MeanderingProgrammer/render-markdown.nvim",
 		},
 		---@module "fzf-lua"
 		---@type fzf-lua.Config|{}
 		---@diagnostic disable: missing-fields
 		opts = {},
+		keys = require("plugins.configs.fzf-lua"),
 	},
 	{
 		"NeogitOrg/neogit",
@@ -313,7 +316,7 @@ return {
 		},
 		keys = {
 			{ "<leader>to", ":NeovimTips<CR>", desc = "Tips Open Tips" },
-			{ "<leader>tb", ":NeovimTipsBookmarks<CR>", desc = "Tips Show Bookmarked Tips" },
+			{ "<leader>tm", ":NeovimTipsBookmarks<CR>", desc = "Tips Show Bookmarked Tips" },
 		},
 	},
 	{
