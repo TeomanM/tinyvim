@@ -200,9 +200,16 @@ return {
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		ft = { "markdown", "quarto" },
-		opts = {},
+		---@type render.md.Config
+		opts = {
+			completions = {
+				blink = {
+					enabled = true,
+				},
+			},
+		},
 	},
 	{
 		"MagicDuck/grug-far.nvim",

@@ -65,6 +65,7 @@ local servers = {
 	"jsonls",
 	"yamlls",
 	"jdtls",
+	"neocmake",
 }
 
 local lua_lsp_settings = {
