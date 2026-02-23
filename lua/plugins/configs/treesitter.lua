@@ -38,5 +38,7 @@ return {
 		"teal",
 		"java",
 		"nim",
+		"groovy",
+		"kotlin",
 	},
 }
