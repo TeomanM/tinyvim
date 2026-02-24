@@ -27,6 +27,9 @@ return {
 		},
 		menu = {
 			draw = {
+				-- We don't need label_description now because label and label_description are already
+				-- combined together in label by colorful-menu.nvim.
+				columns = { { "kind_icon" }, { "label", gap = 1 } },
 				components = {
 					kind_icon = {
 						text = function(ctx)
@@ -60,6 +63,14 @@ return {
 								is_unknown_type and "" or ctx.label
 							)
 							return mini_icon ~= nil and mini_hl or ctx.kind_hl
+						end,
+					},
+					label = {
+						text = function(ctx)
+							return require("colorful-menu").blink_components_text(ctx)
+						end,
+						highlight = function(ctx)
+							return require("colorful-menu").blink_components_highlight(ctx)
 						end,
 					},
 				},

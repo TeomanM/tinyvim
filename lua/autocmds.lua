@@ -30,3 +30,16 @@ vim.api.nvim_create_autocmd("DirChanged", {
 		end
 	end,
 })
+
+vim.api.nvim_create_autocmd("LspProgress", {
+	callback = function(ev)
+		local value = ev.data.params.value or {}
+		local msg = value.message or "done"
+
+		-- rust analyszer in particular has really long LSP messages so truncate them
+		if #msg > 40 then
+			msg = msg:sub(1, 37) .. "..."
+		end
+		vim.notify(msg)
+	end,
+})
