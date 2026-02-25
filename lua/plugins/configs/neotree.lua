@@ -9,7 +9,6 @@ return {
 		"edgy",
 	},
 	open_files_in_last_window = false,
-	-- auto_clean_after_session_restore = true,
 	clipboard = {
 		sync = "universal",
 	},
@@ -50,11 +49,6 @@ return {
 		},
 		symlink_target = {
 			enabled = true,
-		},
-	},
-	window = {
-		mapping_options = {
-			nowait = true,
 		},
 	},
 }

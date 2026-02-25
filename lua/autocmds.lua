@@ -40,6 +40,13 @@ vim.api.nvim_create_autocmd("LspProgress", {
 		if #msg > 40 then
 			msg = msg:sub(1, 37) .. "..."
 		end
-		vim.notify(msg)
+		-- :h LspProgress
+		vim.api.nvim_echo({ { msg } }, false, {
+			id = "lsp",
+			kind = "progress",
+			title = value.title,
+			status = value.kind ~= "end" and "running" or "success",
+			percent = value.percentage,
+		})
 	end,
 })
