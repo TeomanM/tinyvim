@@ -24,7 +24,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- These are taken directly from blink.cmp I think
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 capabilities.textDocument.completion.completionItem = {
 	documentationFormat = { "markdown", "plaintext" },
 	snippetSupport = true,
@@ -44,7 +43,7 @@ capabilities.textDocument.completion.completionItem = {
 }
 
 vim.lsp.config("*", { capabilities = capabilities })
-
+vim.lsp.inlay_hint.enable(true)
 local servers = {
 	"stylua",
 	"lua_ls",
@@ -66,7 +65,7 @@ local servers = {
 	"yamlls",
 	"jdtls",
 	"neocmake",
-    "nil_ls",
+	"nil_ls",
 }
 
 local lua_lsp_settings = {
