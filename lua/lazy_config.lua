@@ -1,8 +1,6 @@
 ---@type LazyConfig
 return {
 	defaults = { lazy = true },
-	install = { colorscheme = { "catppuccin-mocha" } },
-
 	ui = {
 		icons = {
 			ft = "",

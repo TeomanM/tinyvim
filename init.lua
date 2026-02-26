@@ -25,7 +25,7 @@ require("lazy").setup(plugins, require("lazy_config"))
 
 vim.opt.background = "dark"
 
-vim.cmd.colorscheme("catppuccin-mocha")
+vim.cmd.colorscheme("oxocarbon")
 
 if vim.g.neovide then
 	vim.g.experimental_layer_grouping = true
