@@ -1,15 +1,17 @@
----> NeoTree, NeoGit, Trouble and various dynamic plugins can't be saved
----> in session persistance
----> This autocmd deletes them right before saving
-vim.api.nvim_create_autocmd("User", {
-	pattern = "PersistedSavePre",
+local function get_session_name()
+	local name = vim.fn.getcwd()
+	local branch = vim.trim(vim.fn.system("git branch --show-current"))
+	if vim.v.shell_error == 0 then
+		return name .. branch
+	else
+		return name
+	end
+end
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
 	callback = function()
-		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-			local ft = vim.bo[buf].filetype
-			if ft == "neo-tree" or ft == "NeogitStatus" or ft == "trouble" or ft == "ergoterm" then
-				vim.api.nvim_buf_delete(buf, { force = true })
-			end
-		end
+		local resession = require("resession")
+		resession.save(get_session_name())
 	end,
 })
 
@@ -21,12 +23,14 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 })
 
 vim.api.nvim_create_autocmd("DirChanged", {
-	callback = function()
+	callback = function(_)
 		local ergo = require("ergoterm")
-		local terminals = ergo.get_all()
-		for _, terminal in pairs(terminals) do
-			terminal:send({ ("cd %s").format(vim.fn.getcwd()) }, { action = "start" })
-			terminal:clear("start")
+		local all_terminals = ergo.get_all()
+		for _, term in ipairs(all_terminals) do
+			if term.meta.tabpage == vim.api.nvim_get_current_tabpage() then
+				term:send({ ("cd %s").format(vim.fn.getcwd()) }, { action = "start" })
+				term:clear("start")
+			end
 		end
 	end,
 })

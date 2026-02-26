@@ -58,7 +58,7 @@ return {
 					-- filter using buffer options
 					bo = {
 						-- if the file type is one of following, the window will be ignored
-						filetype = { "neo-tree", "neo-tree-popup", "notify", "trouble", "NeogitStatus" },
+						filetype = { "neo-tree", "neo-tree-popup", "notify", "trouble", "NeogitStatus", "ergoterm" },
 						-- if the buffer type is one of following, the window will be ignored
 						buftype = { "terminal", "quickfix" },
 					},
@@ -83,9 +83,8 @@ return {
 		"akinsho/bufferline.nvim",
 		opts = require("plugins.configs.bufferline"),
 		lazy = false,
-		dependencies = { "tiagovla/scope.nvim", config = true },
 	},
-
+	{ "tiagovla/scope.nvim", lazy = false, config = true },
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -187,7 +186,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"sindrets/diffview.nvim",
-			"nvim-telescope/telescope.nvim",
+			"ibhagwan/fzf-lua",
 		},
 		cmd = "Neogit",
 		keys = {
@@ -239,7 +238,7 @@ return {
 	{
 		"brianhuster/live-preview.nvim",
 		dependencies = {
-			"nvim-telescope/telescope.nvim",
+			"ibhagwan/fzf-lua",
 		},
 		keys = {
 			{ "<leader>pr", "<cmd>LivePreview start<cr>", desc = "Start LivePreview server" },
@@ -261,14 +260,14 @@ return {
 	{
 		"josephschmitt/pj.nvim",
 		dependencies = {
-			"nvim-telescope/telescope.nvim",
+			"ibhagwan/fzf-lua",
 		},
 		cmd = { "Pj", "PjCd" },
 		keys = {
-			{ "<leader>fp", "<cmd>Pj<cr>", desc = "Telescope find projects (global)" },
+			{ "<leader>fp", "<cmd>Pj<cr>", desc = "Find projects (global)" },
 		},
 		opts = {
-			picker = { type = "telescope" },
+			picker = { type = "fzf_lua" },
 		},
 	},
 	{
@@ -342,7 +341,7 @@ return {
 		dependencies = { "ibhagwan/fzf-lua" },
 		cmd = "FzfNerdfont",
 		keys = {
-			{ "<leader>fi", "<CMD>FzfNerdfont<CR>", desc = "Telescope fzf nerd font picker" },
+			{ "<leader>fi", "<CMD>FzfNerdfont<CR>", desc = "Nerd Font Symbols" },
 		},
 		opts = {},
 	},
@@ -362,16 +361,24 @@ return {
 	},
 	-- Lua
 	{
-		"olimorris/persisted.nvim",
-		event = "BufReadPre",
-		opts = {
-			use_git_branch = true,
-		},
-		init = function()
-			require("telescope").load_extension("persisted")
-		end,
+		"stevearc/resession.nvim",
+		opts = {},
 		keys = {
-			{ "<leader>sf", "<cmd>Telescope persisted<cr>", { desc = "Telescope open saved sessions" } },
+			{
+				"<leader>sf",
+				function()
+					local resession = require("resession")
+					require("fzf-lua")
+					FzfLua.fzf_exec(resession.list(), {
+						actions = {
+							["default"] = function(selected)
+								resession.load(selected[1])
+							end,
+						},
+					})
+				end,
+				desc = "Resession",
+			},
 		},
 	},
 	{
@@ -385,16 +392,13 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-            ---@type fluoromachine
+			---@type fluoromachine
 			local fm = require("fluoromachine")
 
 			fm.setup({
-				-- glow = true,
 				theme = "fluoromachine",
-				-- transparent = true,
 			})
-
-			-- vim.cmd.colorscheme("fluoromachine")
 		end,
 	},
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }
