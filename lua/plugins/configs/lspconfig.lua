@@ -35,6 +35,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+vim.lsp.document_color.enable(true)
+vim.lsp.linked_editing_range.enable(true)
+vim.lsp.inlay_hint.enable(true)
+vim.lsp.inline_completion.enable(true)
+
 -- These are taken directly from blink.cmp I think
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem = {
@@ -56,7 +61,6 @@ capabilities.textDocument.completion.completionItem = {
 }
 
 vim.lsp.config("*", { capabilities = capabilities })
-vim.lsp.inlay_hint.enable(true)
 local servers = {
 	"stylua",
 	"lua_ls",
@@ -96,16 +100,5 @@ local lua_lsp_settings = {
 }
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
-vim.lsp.config.qmlls = {
-	cmd = { "qmlls", "-E" },
-}
-vim.lsp.config.teal_ls = {
-	cmd = { "/home/teoman/.luarocks/bin/teal-language-server" },
-}
-vim.lsp.config.nimls = {
-	cmd = { "/home/teoman/.nimble/bin/nimlsp" },
-}
-
-vim.lsp.enable({ "lua_ls", "qmlls", "teal_ls", "nimls" })
 
 return servers

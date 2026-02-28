@@ -48,7 +48,7 @@ return {
 	},
 	{
 		"s1n7ax/nvim-window-picker",
-		version = "2.*",
+		version = "*",
 		config = function()
 			---@diagnostic disable-next-line: undefined-field
 			require("window-picker").setup({
@@ -97,7 +97,7 @@ return {
 
 	{
 		"saghen/blink.cmp",
-		version = "1.*",
+		version = "*",
 		event = "InsertEnter",
 		dependencies = {
 			"rafamadriz/friendly-snippets",
@@ -125,14 +125,6 @@ return {
 		---@type MasonLspconfigSettings
 		opts = {
 			ensure_installed = require("plugins.configs.lspconfig"),
-			automatic_enable = {
-				exclude = {
-					"lua_ls",
-					"qmlls",
-					"teal_ls",
-					"nimls",
-				},
-			},
 		},
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
@@ -195,7 +187,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^7",
+		version = "*",
 		lazy = false, -- This plugin is already lazy
 	},
 	{
