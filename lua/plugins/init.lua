@@ -263,11 +263,6 @@ return {
 		},
 	},
 	{
-		"nemanjamalesija/smart-paste.nvim",
-		event = "VeryLazy",
-		config = true,
-	},
-	{
 		"gbprod/yanky.nvim",
 		dependencies = {
 			{ "kkharji/sqlite.lua" },
@@ -362,21 +357,21 @@ return {
 					local resession = require("resession")
 					require("fzf-lua")
 
-					---@class ResessionFormatter
+					---@class FzfFormattedStr
 					---@field original string
-					---@field reformatted string
-					local ResessionFormatter = {}
+					---@field reformatted string?
+					local FzfFormattedStr = {}
 
-					---@type ResessionFormatter[]
+					---@type FzfFormattedStr[]
 					local names = {}
 
 					for index, value in ipairs(resession.list()) do
 						names[index] = {
 							original = value,
-							reformatted = value:gsub("__branch__", "\t "):gsub("_", "/"):gsub("/home/teoman/", "~/"),
+							reformatted = value:gsub("__branch__", "\t "):gsub("_", "/"),
 						}
 					end
-					FzfLua.fzf_exec(function(wnl)
+					FzfLua.fzf_exec(function(wnl, w)
 						for _, value in pairs(names) do
 							wnl(value.reformatted)
 						end
@@ -390,6 +385,19 @@ return {
 									end
 								end
 							end,
+							["ctrl-e"] = {
+								fn = function(items)
+									for _, selected in ipairs(items) do
+										for _, name in ipairs(names) do
+											if name.reformatted == selected then
+												resession.delete(name.original)
+												break
+											end
+										end
+									end
+								end,
+								reload = true,
+							},
 						},
 						color_icons = true,
 						fzf_colors = { true },
