@@ -259,7 +259,7 @@ return {
 			{ "<leader>fp", "<cmd>Pj<cr>", desc = "Find projects (global)" },
 		},
 		opts = {
-			picker = { type = "fzf_lua" },
+			picker = { type = "telescope" },
 		},
 	},
 	{
@@ -361,15 +361,61 @@ return {
 				function()
 					local resession = require("resession")
 					require("fzf-lua")
-					FzfLua.fzf_exec(resession.list(), {
+
+					---@class ResessionFormatter
+					---@field original string
+					---@field reformatted string
+					local ResessionFormatter = {}
+
+					---@type ResessionFormatter[]
+					local names = {}
+
+					for index, value in ipairs(resession.list()) do
+						names[index] = {
+							original = value,
+							reformatted = value:gsub("__branch__", "\t "):gsub("_", "/"):gsub("/home/teoman/", "~/"),
+						}
+					end
+					FzfLua.fzf_exec(function(wnl)
+						for _, value in pairs(names) do
+							wnl(value.reformatted)
+						end
+					end, {
 						actions = {
-							["default"] = function(selected)
-								resession.load(selected[1])
+							["default"] = function(items)
+								for _, value in ipairs(names) do
+									if value.reformatted == items[1] then
+										resession.load(value.original)
+										break
+									end
+								end
 							end,
 						},
+						color_icons = true,
+						fzf_colors = { true },
+						prompt = "Sessions   ",
+						file_icons = true,
 					})
 				end,
-				desc = "Resession",
+				desc = "Resession List",
+			},
+			{
+				"<leader>ss",
+				function()
+					local resession = require("resession")
+					resession.save("last")
+				end,
+				desc = "Resession Save",
+			},
+			{
+				"<leader>sd",
+				function()
+					local resession = require("resession")
+					for _, ses in ipairs(resession.list()) do
+						resession.delete(ses)
+					end
+				end,
+				desc = "Resession Delete All",
 			},
 		},
 	},

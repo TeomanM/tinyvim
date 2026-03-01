@@ -10,32 +10,32 @@ return {
 		desc = "LSP Implementations (Trouble)",
 	},
 	{
-		"<leader>qx",
+		"<leader>gx",
 		"<cmd>Trouble diagnostics toggle<cr>",
 		desc = "Diagnostics (Trouble)",
 	},
 	{
-		"<leader>qX",
+		"<leader>gX",
 		"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
 		desc = "Buffer Diagnostics (Trouble)",
 	},
 	{
-		"<leader>qs",
+		"<leader>gs",
 		"<cmd>Trouble symbols toggle focus=false<cr>",
 		desc = "Symbols (Trouble)",
 	},
 	{
-		"<leader>cl",
+		"<leader>gl",
 		"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 		desc = "LSP Definitions / references / ... (Trouble)",
 	},
 	{
-		"<leader>qL",
+		"<leader>gL",
 		"<cmd>Trouble loclist toggle<cr>",
 		desc = "Location List (Trouble)",
 	},
 	{
-		"<leader>qQ",
+		"<leader>gQ",
 		"<cmd>Trouble qflist toggle<cr>",
 		desc = "Quickfix List (Trouble)",
 	},

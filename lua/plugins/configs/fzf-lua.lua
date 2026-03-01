@@ -11,6 +11,7 @@ return {
 	{ "<leader>fa", "<cmd>FzfLua files hidden=true<cr>", desc = "Find all files" },
 	{ "<leader>mp", "<cmd>FzfLua manpages<cr>", desc = "Search Manpages" },
 	{ "<leader>ob", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+	{ "<leader>th", "<cmd>FzfLua colorschemes<cr>", desc = "Colorschemes" },
 
 	{
 		"<leader>fs",
