@@ -371,7 +371,7 @@ return {
 							reformatted = value:gsub("__branch__", "\t "):gsub("_", "/"),
 						}
 					end
-					FzfLua.fzf_exec(function(wnl, w)
+					FzfLua.fzf_exec(function(wnl)
 						for _, value in pairs(names) do
 							wnl(value.reformatted)
 						end

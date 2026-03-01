@@ -37,10 +37,8 @@ return {
 								return (require("lspkind").symbol_map[ctx.kind] or "") .. ctx.icon_gap
 							end
 
-							local is_unknown_type = vim.tbl_contains(
-								{ "link", "socket", "fifo", "char", "block", "unknown" },
-								ctx.item.data.type
-							)
+							local is_unknown_type =
+								vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
 							local mini_icon, _ = require("mini.icons").get(
 								is_unknown_type and "os" or ctx.item.data.type,
 								is_unknown_type and "" or ctx.label
@@ -54,10 +52,8 @@ return {
 								return ctx.kind_hl
 							end
 
-							local is_unknown_type = vim.tbl_contains(
-								{ "link", "socket", "fifo", "char", "block", "unknown" },
-								ctx.item.data.type
-							)
+							local is_unknown_type =
+								vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
 							local mini_icon, mini_hl = require("mini.icons").get(
 								is_unknown_type and "os" or ctx.item.data.type,
 								is_unknown_type and "" or ctx.label
