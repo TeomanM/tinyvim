@@ -1,6 +1,16 @@
 vim.diagnostic.config({
 	virtual_text = true,
 	virtual_lines = false,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅙 ",
+			[vim.diagnostic.severity.WARN] = " ",
+			[vim.diagnostic.severity.HINT] = " ",
+			[vim.diagnostic.severity.INFO] = " ",
+		},
+	},
+	underline = true,
+	severity_sort = true,
 })
 -- Use LspAttach autocommand to only map the following keys
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -76,9 +86,10 @@ local lua_lsp_settings = {
 		workspace = {
 			library = {
 				vim.fn.expand("$VIMRUNTIME/lua"),
-				"$XDG_DATA_HOME/nvim/lazy",
+				"$XDG_DATA_HOME/nvim",
 				"${3rd}/luv/library",
 				"$XDG_CONFIG_HOME/mpv/types",
+				"/usr/share/somewm/lua",
 			},
 		},
 	},

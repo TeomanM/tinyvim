@@ -4,7 +4,7 @@ return {
 		section_separators = { left = "", right = "" },
 	},
 	sections = {
-		lualine_c = { "filename", "hostname" },
+		lualine_c = { "filename", "hostname", "lsp_status" },
 	},
 	extensions = {
 		-- "fzf",

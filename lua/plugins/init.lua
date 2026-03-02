@@ -228,16 +228,6 @@ return {
 		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 	},
 	{
-		"brianhuster/live-preview.nvim",
-		dependencies = {
-			"ibhagwan/fzf-lua",
-		},
-		keys = {
-			{ "<leader>pr", "<cmd>LivePreview start<cr>", desc = "Start LivePreview server" },
-		},
-		ft = { "markdown", "html", "asciidoc", "svg" },
-	},
-	{
 		"michaelb/sniprun",
 		branch = "master",
 		build = "sh install.sh",
@@ -341,12 +331,6 @@ return {
 			return require("plugins.configs.flash")
 		end,
 	},
-
-	{
-		"aronjohanns/smooth-resize.nvim",
-		event = "WinResized",
-	},
-	-- Lua
 	{
 		"stevearc/resession.nvim",
 		opts = {},
@@ -435,7 +419,6 @@ return {
 	},
 	{
 		"maxmx03/fluoromachine.nvim",
-		lazy = false,
 		priority = 1000,
 		config = function()
 			---@type fluoromachine
