@@ -434,6 +434,44 @@ return {
 			},
 		},
 	},
+
+	{
+		"glyccogen/imprint.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		cmd = "Imprint",
+		keys = {
+			{
+				"<leader>ts",
+				function()
+					vim.api.nvim_command(("Imprint --open %s"):format(vim.fn.bufname()))
+				end,
+				desc = "Screenshot whole file",
+				mode = "n",
+			},
+			{
+				"<leader>ts",
+				function()
+					vim.api.nvim_command((":Imprint --open %s"):format(vim.fn.bufname()))
+				end,
+				-- ":Imprint --open<cr>",
+				desc = "Screenshot selection",
+				mode = "x",
+			},
+		},
+		config = function()
+			require("imprint").setup({
+				output_dir = "~/Pictures/code_screenshots",
+				copy_to_clipboard = true,
+				background = "#1E1E2E",
+				line_numbers = true,
+				diagnostics_on = true,
+			})
+		end,
+	},
+
+	-- Themes
 	{
 		"nyoom-engineering/oxocarbon.nvim",
 	},
