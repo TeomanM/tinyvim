@@ -249,7 +249,21 @@ return {
 			{ "<leader>fp", "<cmd>Pj<cr>", desc = "Find projects (global)" },
 		},
 		opts = {
-			picker = { type = "telescope" },
+			pj = {
+				cache = false,
+			},
+			picker = {
+				type = "telescope",
+
+				telescope = {
+					previewer = true, -- Enable file previewer
+				},
+			},
+			depth = {
+				initial = 10,
+				min = 1,
+				max = 20,
+			},
 		},
 	},
 	{
@@ -410,6 +424,23 @@ return {
 				desc = "Resession Delete All",
 			},
 		},
+	},
+	{
+		"saecki/crates.nvim",
+		config = function()
+			require("crates").setup(
+				---@type crates.UserConfig
+				{
+					lsp = {
+						enabled = true,
+						actions = true,
+						completion = true,
+						hover = true,
+					},
+				}
+			)
+		end,
+		lazy = false,
 	},
 	{
 		"nyoom-engineering/oxocarbon.nvim",

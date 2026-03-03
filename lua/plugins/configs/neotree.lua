@@ -12,22 +12,17 @@ return {
 	clipboard = {
 		sync = "universal",
 	},
+	---@type neotree.Config.Filesystem
 	filesystem = {
 		filtered_items = {
 			show_hidden_count = false,
 		},
 	},
+	---@type neotree.Config.ComponentDefaults
 	default_component_configs = {
-		diagnostics = {
-			symbols = {
-				hint = "",
-				info = "",
-				warn = "",
-				error = "",
-			},
-		},
 		git_status = {
 			symbols = {
+				unstaged = "",
 				untracked = "",
 			},
 		},
@@ -49,6 +44,31 @@ return {
 		},
 		symlink_target = {
 			enabled = true,
+		},
+	},
+	renderers = {
+		directory = {
+			{ "indent" },
+			{ "icon" },
+			{ "current_filter" },
+			{
+				"container",
+				content = {
+					{ "name", zindex = 10 },
+					{
+						"symlink_target",
+						zindex = 10,
+						highlight = "NeoTreeSymbolicLinkTarget",
+					},
+					{ "clipboard", zindex = 10 },
+					{ "diagnostics", errors_only = false, zindex = 20, align = "right", hide_when_expanded = true },
+					{ "git_status", zindex = 10, align = "right", hide_when_expanded = true },
+					{ "file_size", zindex = 10, align = "right" },
+					{ "type", zindex = 10, align = "right" },
+					{ "last_modified", zindex = 10, align = "right" },
+					{ "created", zindex = 10, align = "right" },
+				},
+			},
 		},
 	},
 }
