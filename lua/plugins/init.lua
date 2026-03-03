@@ -130,7 +130,8 @@ return {
 			{ "mason-org/mason.nvim", opts = {} },
 			"neovim/nvim-lspconfig",
 		},
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
+		-- lazy = false,
 	},
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{
@@ -177,7 +178,7 @@ return {
 		"NeogitOrg/neogit",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"sindrets/diffview.nvim",
+			"esmuellert/codediff.nvim",
 			"ibhagwan/fzf-lua",
 		},
 		cmd = "Neogit",
@@ -189,6 +190,25 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "*",
 		lazy = false, -- This plugin is already lazy
+		dependencies = {
+			{
+				"saecki/crates.nvim",
+				config = function()
+					require("crates").setup(
+						---@type crates.UserConfig
+						{
+							lsp = {
+								enabled = true,
+								actions = true,
+								completion = true,
+								hover = true,
+							},
+						}
+					)
+				end,
+				lazy = false,
+			},
+		},
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
@@ -249,9 +269,6 @@ return {
 			{ "<leader>fp", "<cmd>Pj<cr>", desc = "Find projects (global)" },
 		},
 		opts = {
-			pj = {
-				cache = false,
-			},
 			picker = {
 				type = "telescope",
 
@@ -315,14 +332,6 @@ return {
 		keys = {
 			{ "<leader>to", ":NeovimTips<CR>", desc = "Tips Open Tips" },
 			{ "<leader>tm", ":NeovimTipsBookmarks<CR>", desc = "Tips Show Bookmarked Tips" },
-		},
-	},
-	{
-		"m4xshen/hardtime.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
-		lazy = false,
-		opts = {
-			enabled = false,
 		},
 	},
 	{
@@ -426,23 +435,6 @@ return {
 		},
 	},
 	{
-		"saecki/crates.nvim",
-		config = function()
-			require("crates").setup(
-				---@type crates.UserConfig
-				{
-					lsp = {
-						enabled = true,
-						actions = true,
-						completion = true,
-						hover = true,
-					},
-				}
-			)
-		end,
-		lazy = false,
-	},
-	{
 		"nyoom-engineering/oxocarbon.nvim",
 	},
 	{
@@ -461,4 +453,12 @@ return {
 		end,
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	-- {
+	-- 	"m4xshen/hardtime.nvim",
+	-- 	dependencies = { "MunifTanjim/nui.nvim" },
+	-- 	lazy = false,
+	-- 	opts = {
+	-- 		enabled = false,
+	-- 	},
+	-- },
 }

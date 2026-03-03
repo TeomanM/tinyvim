@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+vim.lsp.codelens.enable(true)
 vim.lsp.document_color.enable(true)
 vim.lsp.linked_editing_range.enable(true)
 vim.lsp.inlay_hint.enable(true)
@@ -82,6 +83,12 @@ local servers = {
 
 local lua_lsp_settings = {
 	Lua = {
+		codeLens = {
+			enable = false,
+		},
+		hint = {
+			enable = false,
+		},
 		runtime = { version = "LuaJIT" },
 		workspace = {
 			library = {
