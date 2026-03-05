@@ -445,19 +445,10 @@ return {
 			{
 				"<leader>ts",
 				function()
-					vim.api.nvim_command(("Imprint --open %s"):format(vim.fn.bufname()))
+					vim.api.nvim_cmd({ cmd = "Imprint", args = { "--open", vim.fn.bufname() } }, { output = false })
 				end,
 				desc = "Screenshot whole file",
 				mode = "n",
-			},
-			{
-				"<leader>ts",
-				function()
-					vim.api.nvim_command((":Imprint --open %s"):format(vim.fn.bufname()))
-				end,
-				-- ":Imprint --open<cr>",
-				desc = "Screenshot selection",
-				mode = "x",
 			},
 		},
 		config = function()
@@ -469,6 +460,14 @@ return {
 				diagnostics_on = true,
 			})
 		end,
+	},
+
+	{
+		"vuki656/package-info.nvim",
+		opts = {
+			package_manager = "bun",
+		},
+		ft = "json",
 	},
 
 	-- Themes
