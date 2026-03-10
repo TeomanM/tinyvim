@@ -8,6 +8,8 @@ return {
 		"qf",
 		"edgy",
 	},
+	--- When toggling the tree, don't change which window is active
+	--- This prevents the tree from taking full width on close
 	open_files_in_last_window = false,
 	clipboard = {
 		sync = "universal",
@@ -16,6 +18,27 @@ return {
 	filesystem = {
 		filtered_items = {
 			show_hidden_count = false,
+		},
+		follow_current_file = {
+			enabled = true,
+			leave_dirs_open = false,
+		},
+		-- If you don't want to use *any* default mappings, you can set
+		-- `use_default_mappings = false` in your config.
+		--
+		-- If you want to remove one or more particular default mappings, you can map
+		-- the sequence to `none` or `noop`. For example, if you don’t wish to use
+		-- fuzzy finder (default mapping `/`), but instead rely on Neovim’s built-in
+		-- search functionality, you can do that like so this:
+		window = {
+			mappings = {
+				["/"] = "none",
+			},
+		},
+	},
+	window = {
+		mappings = {
+			["<space>"] = "none",
 		},
 	},
 	---@type neotree.Config.ComponentDefaults
