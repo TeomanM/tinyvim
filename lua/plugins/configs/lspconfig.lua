@@ -66,6 +66,7 @@ local servers = {
 	"glsl_analyzer",
 	"clangd",
 	"ruff",
+	"basedpyright",
 	"systemd_lsp",
 	"hyprls",
 	"lemminx",
