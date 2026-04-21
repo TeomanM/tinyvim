@@ -52,7 +52,6 @@ g.loaded_ruby_provider = 0
 -- set leader keys
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.clipboard = "wl-copy"
 
 o.laststatus = 3 -- global statusline
 o.showmode = false
