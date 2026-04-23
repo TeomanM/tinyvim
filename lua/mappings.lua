@@ -20,7 +20,44 @@ map("n", "<leader>rn", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 -- bufferline, cycle buffers
 map("n", "<Tab>", "<cmd> BufferLineCycleNext <CR>")
 map("n", "<S-Tab>", "<cmd> BufferLineCyclePrev <CR>")
-map("n", "<leader>x", "<cmd>bdelete<CR>")
+
+-- Close buffer without disturbing window layout.
+-- Plain :bdelete also closes the window holding the buffer, which lets
+-- sidebars like neo-tree become the sole window and expand full-width.
+-- Instead: swap each window showing this buffer to a different buffer
+-- first, THEN delete the buffer — windows stay, layout stays.
+map("n", "<leader>x", function()
+	local buf = vim.api.nvim_get_current_buf()
+
+	-- Prefer the alternate buffer (`#`, i.e. the last-edited one) as the
+	-- replacement — feels natural, like `:b#`. Fall back to scanning all
+	-- listed buffers for any other real file buffer.
+	local alt = vim.fn.bufnr("#")
+	local target
+	if alt ~= -1 and alt ~= buf and vim.fn.buflisted(alt) == 1 then
+		target = alt
+	else
+		for _, b in ipairs(vim.api.nvim_list_bufs()) do
+			if b ~= buf and vim.fn.buflisted(b) == 1 then
+				target = b
+				break
+			end
+		end
+	end
+
+	-- Replace the doomed buffer in every window that's currently showing it.
+	-- If nothing suitable was found (this was the last real buffer), create
+	-- a fresh empty listed buffer so the window has *something* to display.
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_buf(win) == buf then
+			vim.api.nvim_win_set_buf(win, target or vim.api.nvim_create_buf(true, false))
+		end
+	end
+
+	-- pcall: deletion can fail (e.g. unsaved changes)
+	-- swallow the error rather than crashing
+	pcall(vim.api.nvim_buf_delete, buf, {})
+end, { desc = "Close buffer without disturbing window layout" })
 
 map("n", "<leader>/", "gcc", { remap = true })
 map("v", "<leader>/", "gc", { remap = true })
