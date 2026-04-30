@@ -80,6 +80,7 @@ local servers = {
 	"jdtls",
 	"neocmake",
 	"nil_ls",
+	"postgres_lsp",
 }
 
 local lua_lsp_settings = {
@@ -103,6 +104,6 @@ local lua_lsp_settings = {
 	},
 }
 
-vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
 
+vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
 return servers

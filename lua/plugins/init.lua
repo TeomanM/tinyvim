@@ -490,12 +490,13 @@ return {
 		end,
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	-- {
-	-- 	"m4xshen/hardtime.nvim",
-	-- 	dependencies = { "MunifTanjim/nui.nvim" },
-	-- 	lazy = false,
-	-- 	opts = {
-	-- 		enabled = false,
-	-- 	},
-	-- },
+	{
+		"ggml-org/llama.vim",
+		event = "InsertEnter",
+		init = function()
+			vim.g.llama_config = {
+				auto_fim = false,
+			}
+		end,
+	},
 }
