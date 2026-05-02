@@ -97,13 +97,10 @@ local lua_lsp_settings = {
 				vim.fn.expand("$VIMRUNTIME/lua"),
 				"$XDG_DATA_HOME/nvim",
 				"${3rd}/luv/library",
-				"$XDG_CONFIG_HOME/mpv/types",
-				"/usr/share/somewm/lua",
 			},
 		},
 	},
 }
-
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
 return servers

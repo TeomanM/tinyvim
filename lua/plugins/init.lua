@@ -14,7 +14,7 @@ return {
 		---@type ErgoTermConfig
 		opts = {
 			terminal_defaults = {
-				auto_scroll = true,
+				auto_scroll = false,
 				persist_mode = true,
 				size = {
 					above = "25%",
@@ -490,13 +490,13 @@ return {
 		end,
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{
-		"ggml-org/llama.vim",
-		event = "InsertEnter",
-		init = function()
-			vim.g.llama_config = {
-				auto_fim = false,
-			}
-		end,
-	},
+	-- {
+	-- 	"ggml-org/llama.vim",
+	-- 	event = "InsertEnter",
+	-- 	init = function()
+	-- 		vim.g.llama_config = {
+	-- 			show_info = false,
+	-- 		}
+	-- 	end,
+	-- },
 }

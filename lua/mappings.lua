@@ -26,12 +26,31 @@ map("n", "<S-Tab>", "<cmd> BufferLineCyclePrev <CR>")
 -- sidebars like neo-tree become the sole window and expand full-width.
 -- Instead: swap each window showing this buffer to a different buffer
 -- first, THEN delete the buffer — windows stay, layout stays.
-map("n", "<leader>x", function()
-	local buf = vim.api.nvim_get_current_buf()
+-- Modified check happens before any window swap so Cancel is a true no-op.
+local function close_buf(buf)
+	buf = buf or vim.api.nvim_get_current_buf()
 
-	-- Prefer the alternate buffer (`#`, i.e. the last-edited one) as the
-	-- replacement — feels natural, like `:b#`. Fall back to scanning all
-	-- listed buffers for any other real file buffer.
+	if not vim.api.nvim_buf_is_valid(buf) then
+		return
+	end
+
+	if vim.bo[buf].modified then
+		local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname(buf)), "&Save\n&Discard\n&Cancel", 3)
+		if choice == 1 then
+			local ok, err = pcall(vim.api.nvim_buf_call, buf, vim.cmd.write)
+			if not ok then
+				vim.notify("Could not save buffer: " .. tostring(err), vim.log.levels.ERROR)
+				return
+			end
+		elseif choice == 2 then
+			-- fall through; force=true set at deletion
+		else
+			return -- Cancel or <Esc>
+		end
+	end
+
+	-- Prefer the alternate buffer (`#`) as the replacement — feels natural,
+	-- like `:b#`. Fall back to scanning all listed buffers.
 	local alt = vim.fn.bufnr("#")
 	local target
 	if alt ~= -1 and alt ~= buf and vim.fn.buflisted(alt) == 1 then
@@ -45,19 +64,33 @@ map("n", "<leader>x", function()
 		end
 	end
 
-	-- Replace the doomed buffer in every window that's currently showing it.
-	-- If nothing suitable was found (this was the last real buffer), create
-	-- a fresh empty listed buffer so the window has *something* to display.
+	-- Replace the buffer in every window showing it. If nothing suitable was
+	-- found (last real buffer), create a fresh empty listed buffer.
 	for _, win in ipairs(vim.api.nvim_list_wins()) do
 		if vim.api.nvim_win_get_buf(win) == buf then
 			vim.api.nvim_win_set_buf(win, target or vim.api.nvim_create_buf(true, false))
 		end
 	end
 
-	-- pcall: deletion can fail (e.g. unsaved changes)
-	-- swallow the error rather than crashing
-	pcall(vim.api.nvim_buf_delete, buf, {})
-end, { desc = "Close buffer without disturbing window layout" })
+	-- force=true only when user chose Discard (modified still true after swap)
+	vim.api.nvim_buf_delete(buf, { force = vim.bo[buf].modified })
+end
+
+map("n", "<leader>x", close_buf, { desc = "Close buffer without disturbing window layout" })
+
+-- Intercept :q so it uses the layout-safe close instead of Vim's default
+-- window-closing path. error(...,0) aborts the :q; Neovim catches it at
+-- the autocmd boundary without printing anything to the user.
+vim.api.nvim_create_autocmd("QuitPre", {
+	callback = function()
+		local buf = vim.api.nvim_get_current_buf()
+		if vim.bo[buf].buftype ~= "" then
+			return
+		end
+		close_buf(buf)
+		error("close_buf: handled", 0)
+	end,
+})
 
 map("n", "<leader>/", "gcc", { remap = true })
 map("v", "<leader>/", "gc", { remap = true })

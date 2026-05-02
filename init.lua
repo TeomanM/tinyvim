@@ -2,6 +2,7 @@ require("options")
 require("mappings")
 require("commands")
 require("autocmds")
+require("filetypes")
 
 -- bootstrap plugins & lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim" -- path where its going to be installed
@@ -28,4 +29,7 @@ vim.cmd.colorscheme("catppuccin-mocha")
 
 if vim.g.neovide then
 	vim.g.experimental_layer_grouping = true
+    vim.g.neovide_cursor_animation_length = 0.1
+    vim.g.neovide_scroll_animation_length = 0.1
+    vim.g.neovide_cursor_trail_size = 0.2
 end

@@ -34,3 +34,15 @@ vim.api.nvim_create_autocmd("DirChanged", {
 		end
 	end,
 })
+
+if vim.g.neovide then
+	vim.api.nvim_create_autocmd({ "BufEnter", "TermOpen" }, {
+		callback = function()
+			local is_ergoterm = vim.bo.filetype == "ergoterm"
+
+			vim.g.neovide_cursor_animation_length = is_ergoterm and 0 or 0.1
+			vim.g.neovide_scroll_animation_length = is_ergoterm and 0 or 0.1
+			vim.g.neovide_cursor_trail_size = is_ergoterm and 0 or 0.8
+		end,
+	})
+end
