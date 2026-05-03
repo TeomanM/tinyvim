@@ -41,5 +41,6 @@ return {
 		"nim",
 		"groovy",
 		"kotlin",
+        "zig",
 	},
 }

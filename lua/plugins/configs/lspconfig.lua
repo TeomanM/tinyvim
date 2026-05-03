@@ -81,6 +81,7 @@ local servers = {
 	"neocmake",
 	"nil_ls",
 	"postgres_lsp",
+    "zls",
 }
 
 local lua_lsp_settings = {

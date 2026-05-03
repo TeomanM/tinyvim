@@ -6,6 +6,11 @@ o.laststatus = 3
 o.showmode = false
 o.splitkeep = "screen"
 
+-- SSH clipboard
+if os.getenv("SSH_CLIENT") or os.getenv("SSH_TTY") then
+	g.clipboard = "osc52"
+end
+
 o.clipboard = "unnamedplus"
 o.cursorline = true
 o.cursorlineopt = "number"
@@ -50,21 +55,13 @@ g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
 
 -- set leader keys
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+g.mapleader = " "
+g.maplocalleader = "\\"
 
 o.laststatus = 3 -- global statusline
 o.showmode = false
 
 o.termguicolors = true
-
-vim.filetype.add({
-	pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-})
-
-vim.filetype.add({
-	pattern = { ["Caddyfile"] = "caddy" },
-})
 
 -- No line wraps.
 o.wrap = false
