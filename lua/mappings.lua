@@ -78,20 +78,6 @@ end
 
 map("n", "<leader>x", close_buf, { desc = "Close buffer without disturbing window layout" })
 
--- Intercept :q so it uses the layout-safe close instead of Vim's default
--- window-closing path. error(...,0) aborts the :q; Neovim catches it at
--- the autocmd boundary without printing anything to the user.
-vim.api.nvim_create_autocmd("QuitPre", {
-	callback = function()
-		local buf = vim.api.nvim_get_current_buf()
-		if vim.bo[buf].buftype ~= "" then
-			return
-		end
-		close_buf(buf)
-		error("close_buf: handled", 0)
-	end,
-})
-
 map("n", "<leader>/", "gcc", { remap = true })
 map("v", "<leader>/", "gc", { remap = true })
 
