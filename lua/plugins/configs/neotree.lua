@@ -1,3 +1,4 @@
+---@module "neo-tree"
 ---@type neotree.Config
 return {
 	enable_cursor_hijack = true,

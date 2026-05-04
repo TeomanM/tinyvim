@@ -1,3 +1,4 @@
+---@module "ergoterm"
 return {
 	{
 		"<M-h>",

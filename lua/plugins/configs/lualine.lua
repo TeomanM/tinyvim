@@ -1,3 +1,4 @@
+---@module "lualine"
 return {
 	options = {
 		component_separators = { left = "", right = "" },

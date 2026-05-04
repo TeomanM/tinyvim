@@ -1,3 +1,4 @@
+---@module "blink-cmp"
 ---@type blink.cmp.Config
 return {
 	snippets = { preset = "luasnip" },
@@ -16,6 +17,18 @@ return {
 			"sort_text",
 			"label",
 			"kind",
+		},
+	},
+	sources = {
+		-- add lazydev to your completion providers
+		default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+		providers = {
+			lazydev = {
+				name = "LazyDev",
+				module = "lazydev.integrations.blink",
+				-- make lazydev completions top priority (see `:h blink.cmp`)
+				score_offset = 100,
+			},
 		},
 	},
 	completion = {

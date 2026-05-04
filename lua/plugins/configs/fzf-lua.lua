@@ -1,3 +1,4 @@
+---@module "fzf-lua"
 return {
 	{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Find buffers" },
 	{ "<leader>fh", "<cmd>FzfLua helptags<cr>", desc = "Help page" },

@@ -1,3 +1,4 @@
+---@module "bufferline.config"
 ---@type bufferline.UserConfig
 return {
 	options = {
@@ -24,6 +25,6 @@ return {
 			local icon = level:match("error") and " " or " "
 			return " " .. icon .. count
 		end,
-        auto_toggle_bufferline = true,
+		auto_toggle_bufferline = true,
 	},
 }

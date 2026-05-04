@@ -436,7 +436,8 @@ return {
 	},
 
 	{
-		"glyccogen/imprint.nvim",
+		dir = "/home/teoman/personal-projects/imprint.nvim",
+		-- "glyccogen/imprint.nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
@@ -490,6 +491,15 @@ return {
 		end,
 	},
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
 	-- {
 	-- 	"ggml-org/llama.vim",
 	-- 	event = "InsertEnter",

@@ -1,3 +1,4 @@
+---@module "conform"
 ---@type conform.setupOpts
 return {
 	formatters = {

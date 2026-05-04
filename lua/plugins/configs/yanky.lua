@@ -13,18 +13,6 @@ return {
 		mode = { "n", "x" },
 		desc = "Smart Put yanked text before cursor",
 	},
-	{
-		"gp",
-		"<Plug>(YankyGPutAfter)",
-		mode = { "n", "x" },
-		desc = "Smart Put yanked text after cursor and leave cursor after",
-	},
-	{
-		"gP",
-		"<Plug>(YankyGPutBefore)",
-		mode = { "n", "x" },
-		desc = "Smart Put yanked text before cursor and leave cursor after",
-	},
 	{ "]p", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Smart Put indented after cursor (linewise)" },
 	{ "[p", "<Plug>(YankyPutIndentBeforeLinewise)", desc = "Smart Put indented before cursor (linewise)" },
 	{ "]P", "<Plug>(YankyPutIndentAfterLinewise)", desc = "Smart Put indented after cursor (linewise)" },
@@ -33,6 +21,4 @@ return {
 	{ "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", desc = "Smart Put and indent left" },
 	{ ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Smart Put before and indent right" },
 	{ "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", desc = "Smart Put before and indent left" },
-	{ "=p", "<Plug>(YankyPutAfterFilter)", desc = "Smart Put after applying a filter" },
-	{ "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Smart Put before applying a filter" },
 }

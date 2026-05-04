@@ -1,3 +1,4 @@
+---@module "flash"
 return {
 	{
 		"s",

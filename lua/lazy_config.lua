@@ -1,3 +1,4 @@
+---@module "lazy"
 ---@type LazyConfig
 return {
 	defaults = { lazy = true },
@@ -12,8 +13,8 @@ return {
 
 	performance = {
 		rtp = {
+            reset = true,
 			disabled_plugins = {
-				"2html_plugin",
 				"getscript",
 				"getscriptPlugin",
 				"gzip",

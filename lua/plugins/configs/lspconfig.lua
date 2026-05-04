@@ -81,7 +81,7 @@ local servers = {
 	"neocmake",
 	"nil_ls",
 	"postgres_lsp",
-    "zls",
+	"zls",
 }
 
 local lua_lsp_settings = {
@@ -91,14 +91,6 @@ local lua_lsp_settings = {
 		},
 		hint = {
 			enable = false,
-		},
-		runtime = { version = "LuaJIT" },
-		workspace = {
-			library = {
-				vim.fn.expand("$VIMRUNTIME/lua"),
-				"$XDG_DATA_HOME/nvim",
-				"${3rd}/luv/library",
-			},
 		},
 	},
 }
