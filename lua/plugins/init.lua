@@ -1,3 +1,4 @@
+---@module "lazy"
 ---@type LazyPluginSpec[]
 return {
 	{ "nvim-lua/plenary.nvim" },
@@ -88,6 +89,7 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		---@module "which-key"
 		---@type wk.Opts
 		opts = {
 			preset = "modern",
@@ -122,6 +124,7 @@ return {
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
+		---@module "mason-lspconfig"
 		---@type MasonLspconfigSettings
 		opts = {
 			ensure_installed = require("plugins.configs.lspconfig"),
@@ -169,8 +172,7 @@ return {
 			"MeanderingProgrammer/render-markdown.nvim",
 		},
 		---@module "fzf-lua"
-		---@type fzf-lua.Config|{}
-		---@diagnostic disable: missing-fields
+		---@type fzf-lua.Config
 		opts = {},
 		keys = require("plugins.configs.fzf-lua"),
 	},
@@ -214,7 +216,8 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		ft = { "markdown", "quarto" },
-		---@type render.md.Config
+		---@module "render-markdown"
+		---@type render.md.UserConfig
 		opts = {
 			completions = {
 				blink = {
@@ -231,6 +234,7 @@ return {
 	},
 	{
 		"folke/trouble.nvim",
+		---@module "trouble"
 		---@type trouble.Config
 		opts = {}, -- for default options, refer to the configuration section for custom setup.
 		cmd = "Trouble",
@@ -348,6 +352,7 @@ return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
+		---@module "flash"
 		---@type Flash.Config
 		opts = {},
 		keys = function()
@@ -436,8 +441,7 @@ return {
 	},
 
 	{
-		dir = "/home/teoman/personal-projects/imprint.nvim",
-		-- "glyccogen/imprint.nvim",
+		"glyccogen/imprint.nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
@@ -498,6 +502,28 @@ return {
 			library = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
+		},
+	},
+	{
+		"brianhuster/live-preview.nvim",
+		dependencies = {
+			"ibhagwan/fzf-lua",
+		},
+		lazy = false,
+		opts = function()
+			---@diagnostic disable-next-line: missing-fields
+			require("livepreview.config").set({
+				port = 5500,
+				browser = "default",
+				dynamic_root = false,
+				sync_scroll = true,
+				address = "0.0.0.0",
+			})
+		end,
+		keys = {
+			{ "<leader>lpr", "<cmd>LivePreview start<cr>", desc = "Start Live Server" },
+			{ "<leader>lps", "<cmd>LivePreview close<cr>", desc = "Stop Live Server" },
+			{ "<leader>lpp", "<cmd>LivePreview pick<cr>", desc = "Pick a file to serve" },
 		},
 	},
 	-- {

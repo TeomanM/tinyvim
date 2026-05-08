@@ -73,6 +73,9 @@ o.relativenumber = true
 -- Tab
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
+-- Add TOHtml
+vim.cmd("packadd nvim.tohtml")
+
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
 local sep = is_windows and "\\" or "/"

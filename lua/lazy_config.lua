@@ -13,7 +13,6 @@ return {
 
 	performance = {
 		rtp = {
-            reset = true,
 			disabled_plugins = {
 				"getscript",
 				"getscriptPlugin",

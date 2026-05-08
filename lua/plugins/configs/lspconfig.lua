@@ -63,6 +63,7 @@ local servers = {
 	"html",
 	"cssls",
 	"ts_ls",
+    "denols",
 	"glsl_analyzer",
 	"clangd",
 	"ruff",

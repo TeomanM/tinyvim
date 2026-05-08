@@ -1,6 +1,5 @@
 ---@module "fzf-lua"
 return {
-	{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Find buffers" },
 	{ "<leader>fh", "<cmd>FzfLua helptags<cr>", desc = "Help page" },
 	{ "<leader>ma", "<cmd>FzfLua marks<cr>", desc = "Find marks" },
 	{ "<leader>fo", "<cmd>FzfLua oldfiles<cr>", desc = "Find oldfiles" },
@@ -23,5 +22,15 @@ return {
 			})
 		end,
 		desc = "Search Docs",
+	},
+	{
+		"<leader>fg",
+		function()
+			require("fzf-lua").live_grep()
+			FzfLua.live_grep({
+				cwd = "/usr/share/doc/",
+			})
+		end,
+		desc = "Docs Live Grep",
 	},
 }
