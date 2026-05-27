@@ -12,6 +12,7 @@ return {
 	},
 	{
 		"waiting-for-dev/ergoterm.nvim",
+        ---@module "ergoterm"
 		---@type ErgoTermConfig
 		opts = {
 			terminal_defaults = {

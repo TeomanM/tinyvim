@@ -3,7 +3,7 @@ vim.filetype.add({
 })
 
 vim.filetype.add({
-	pattern = { ["Caddyfile"] = "caddy" },
+	pattern = { [".*Caddyfile"] = "caddy" },
 })
 
 vim.filetype.add({
