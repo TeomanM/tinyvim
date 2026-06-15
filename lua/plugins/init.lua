@@ -12,7 +12,7 @@ return {
 	},
 	{
 		"waiting-for-dev/ergoterm.nvim",
-        ---@module "ergoterm"
+		---@module "ergoterm"
 		---@type ErgoTermConfig
 		opts = {
 			terminal_defaults = {
@@ -28,7 +28,24 @@ return {
 		},
 		keys = require("plugins.configs.ergoterm"),
 	},
-	{ "lewis6991/gitsigns.nvim", opts = {}, lazy = false },
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({
+				current_line_blame = true,
+			})
+		end,
+		keys = {
+			{
+				"<leader>wd",
+				function()
+					require("gitsigns").toggle_word_diff()
+				end,
+				desc = "Toggle Word Diff",
+			},
+		},
+		lazy = false,
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "main",
