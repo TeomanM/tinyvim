@@ -62,7 +62,7 @@ local servers = {
 	"lua_ls",
 	"html",
 	"cssls",
-	"ts_ls",
+	"vtsls",
     "denols",
 	"glsl_analyzer",
 	"clangd",
@@ -97,4 +97,17 @@ local lua_lsp_settings = {
 }
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
+
+vim.lsp.config("vtsls", {
+	settings = {
+		typescript = {
+			tsserver = {
+				experimental = {
+					enableProjectDiagnostics = true,
+				},
+			},
+		},
+	},
+})
+
 return servers
