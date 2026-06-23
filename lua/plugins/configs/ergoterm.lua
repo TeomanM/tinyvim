@@ -59,8 +59,12 @@ return {
 				})
 				claude:send({ "\r" }, { new_line = false, trim = false })
 			end
-			local selection = vim.fn.getline(vim.fn.line("'<"), vim.fn.line("'>"))
+			vim.cmd("normal! \27")
+			local src_buf = vim.api.nvim_get_current_buf()
 			local selection_ft = vim.bo.filetype
+			local start_line = vim.fn.line("'<") - 1
+			local end_line = vim.fn.line("'>")
+			local selection = vim.api.nvim_buf_get_lines(src_buf, start_line, end_line, false)
 			local builtin = require("fzf-lua.previewer.builtin")
 			local Previewer = builtin.base:extend()
 			function Previewer:new(o, opts, fzf_win)
@@ -85,6 +89,7 @@ return {
 			require("fzf-lua").fzf_exec(presets, {
 				prompt = "Ask Claude: ",
 				previewer = Previewer,
+				no_resume = true,
 				actions = {
 					["default"] = function(selected, opts)
 						---@diagnostic disable-next-line: undefined-field
