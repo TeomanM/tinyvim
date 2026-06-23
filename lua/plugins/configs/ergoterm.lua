@@ -59,8 +59,32 @@ return {
 				})
 				claude:send({ "\r" }, { new_line = false, trim = false })
 			end
+			local selection = vim.fn.getline(vim.fn.line("'<"), vim.fn.line("'>"))
+			local selection_ft = vim.bo.filetype
+			local builtin = require("fzf-lua.previewer.builtin")
+			local Previewer = builtin.base:extend()
+			function Previewer:new(o, opts, fzf_win)
+				Previewer.super.new(self, o, opts, fzf_win)
+				setmetatable(self, Previewer)
+				return self
+			end
+			function Previewer:populate_preview_buf(entry_str)
+				local tmpbuf = self:get_tmp_buffer()
+				local lines = { "## " .. entry_str, "" }
+				table.insert(lines, "```" .. selection_ft)
+				vim.list_extend(lines, selection)
+				table.insert(lines, "```")
+				vim.api.nvim_buf_set_lines(tmpbuf, 0, -1, false, lines)
+				vim.bo[tmpbuf].filetype = "markdown"
+				self:set_preview_buf(tmpbuf)
+				self.win:update_preview_scrollbar()
+			end
+			function Previewer:gen_winopts()
+				return vim.tbl_extend("force", self.winopts, { wrap = true, number = false })
+			end
 			require("fzf-lua").fzf_exec(presets, {
 				prompt = "Ask Claude: ",
+				previewer = Previewer,
 				actions = {
 					["default"] = function(selected, opts)
 						---@diagnostic disable-next-line: undefined-field
