@@ -1,24 +1,12 @@
 ---@module "ergoterm"
+
+local term_utils = require("utils.term_utils")
+
 return {
 	{
 		"<M-h>",
 		function()
-			local ergo = require("ergoterm")
-			local current_tabpage = vim.api.nvim_get_current_tabpage()
-
-			local all_terms = ergo.get_all()
-			local horizontal
-			for _, term in ipairs(all_terms) do
-				if term.meta.tabpage == current_tabpage and term.name == "Horizontal" then
-					horizontal = term
-					break
-				end
-			end
-
-			if horizontal == nil then
-				horizontal = ergo:new({ layout = "below", name = "Horizontal", watch_files = true, meta = { tabpage = current_tabpage } })
-			end
-			horizontal:toggle()
+			term_utils.toggle_tab_term("Horizontal", { layout = "below" })
 		end,
 		desc = "Toggle Horizontal Terminal",
 		mode = { "n", "t" },
@@ -26,22 +14,7 @@ return {
 	{
 		"<M-v>",
 		function()
-			local ergo = require("ergoterm")
-			local current_tabpage = vim.api.nvim_get_current_tabpage()
-
-			local all_terms = ergo.get_all()
-			local vertical
-			for _, term in ipairs(all_terms) do
-				if term.meta.tabpage == current_tabpage and term.name == "Vertical" then
-					vertical = term
-					break
-				end
-			end
-
-			if vertical == nil then
-				vertical = ergo:new({ layout = "right", name = "Vertical", watch_files = true, meta = { tabpage = current_tabpage } })
-			end
-			vertical:toggle()
+			term_utils.toggle_tab_term("Vertical", { layout = "right" })
 		end,
 		desc = "Toggle Vertical Terminal",
 		mode = { "n", "t" },
@@ -49,28 +22,7 @@ return {
 	{
 		"<M-i>",
 		function()
-			local ergo = require("ergoterm")
-			local current_tabpage = vim.api.nvim_get_current_tabpage()
-
-			local all_terms = ergo.get_all()
-			local floating
-			for _, term in ipairs(all_terms) do
-				if term.meta.tabpage == current_tabpage and term.name == "Floating" then
-					floating = term
-					break
-				end
-			end
-
-			if floating == nil then
-				floating = ergo:new({
-					layout = "float",
-					name = "Floating",
-					watch_files = true,
-					float_opts = { title = "Floating Term" },
-					meta = { tabpage = current_tabpage },
-				})
-			end
-			floating:toggle()
+			term_utils.toggle_tab_term("Floating", { layout = "float", float_opts = { title = "Floating Term" } })
 		end,
 		desc = "Toggle Floating Terminal",
 		mode = { "n", "t" },
@@ -79,15 +31,7 @@ return {
 		"<M-a>",
 		function()
 			local ergo = require("ergoterm")
-			local all_terms = ergo.get_all()
-			local claude
-			for _, term in ipairs(all_terms) do
-				if term.name == "claude" then
-					claude = term
-					break
-				end
-			end
-
+			local claude = term_utils.get_claude_term()
 			if claude == nil then
 				claude = ergo:new({
 					cmd = "claude",
@@ -97,17 +41,31 @@ return {
 					bang_target = false,
 					sticky = true,
 					watch_files = true,
-					size = {
-						above = "35%",
-						below = "35%",
-						left = "35%",
-						right = "35%",
-					},
+					size = { above = "35%", below = "35%", left = "35%", right = "35%" },
 				})
 			end
 			claude:toggle()
 		end,
 		desc = "Toggle Claude Code",
 		mode = { "n", "t" },
+	},
+	{
+		"<leader>as",
+		function()
+			vim.ui.input({ prompt = "Ask Claude: " }, function(question)
+				if not question or question == "" then return end
+				local claude = term_utils.get_claude_term()
+				claude:send("visual_selection", {
+					decorator = function(text)
+						local result = { question .. "\n\n" }
+						vim.list_extend(result, text)
+						return result
+					end,
+					trim = false,
+				})
+			end)
+		end,
+		desc = "Send visual selection to Claude",
+		mode = { "v" },
 	},
 }
