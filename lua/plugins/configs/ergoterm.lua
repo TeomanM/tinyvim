@@ -38,7 +38,13 @@ return {
 	{
 		"<leader>as",
 		function()
-			vim.ui.input({ prompt = "Ask Claude: " }, function(question)
+			local presets = {
+				"Explain this code",
+				"Review this code for bugs",
+				"Refactor this code",
+				"Write tests for this code",
+			}
+			local function send(question)
 				if not question or question == "" then
 					return
 				end
@@ -52,7 +58,16 @@ return {
 					trim = false,
 				})
 				claude:send({ "\r" }, { new_line = false, trim = false })
-			end)
+			end
+			require("fzf-lua").fzf_exec(presets, {
+				prompt = "Ask Claude: ",
+				actions = {
+					["default"] = function(selected, opts)
+						---@diagnostic disable-next-line: undefined-field
+						send(selected[1] or opts.last_query)
+					end,
+				},
+			})
 		end,
 		desc = "Send visual selection to Claude",
 		mode = { "v" },
