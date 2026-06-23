@@ -19,4 +19,22 @@ function M.get_claude_term()
 	end)
 end
 
+function M.get_or_create_claude_term()
+	local claude = M.get_claude_term()
+	if claude == nil then
+		local ergo = require("ergoterm")
+		claude = ergo:new({
+			cmd = "claude",
+			name = "claude",
+			layout = "right",
+			auto_list = false,
+			bang_target = false,
+			sticky = true,
+			watch_files = true,
+			size = { above = "35%", below = "35%", left = "35%", right = "35%" },
+		})
+	end
+	return claude
+end
+
 return M

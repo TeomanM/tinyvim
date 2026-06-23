@@ -30,21 +30,7 @@ return {
 	{
 		"<M-a>",
 		function()
-			local ergo = require("ergoterm")
-			local claude = term_utils.get_claude_term()
-			if claude == nil then
-				claude = ergo:new({
-					cmd = "claude",
-					name = "claude",
-					layout = "right",
-					auto_list = false,
-					bang_target = false,
-					sticky = true,
-					watch_files = true,
-					size = { above = "35%", below = "35%", left = "35%", right = "35%" },
-				})
-			end
-			claude:toggle()
+			term_utils.get_or_create_claude_term():toggle()
 		end,
 		desc = "Toggle Claude Code",
 		mode = { "n", "t" },
@@ -53,8 +39,10 @@ return {
 		"<leader>as",
 		function()
 			vim.ui.input({ prompt = "Ask Claude: " }, function(question)
-				if not question or question == "" then return end
-				local claude = term_utils.get_claude_term()
+				if not question or question == "" then
+					return
+				end
+				local claude = term_utils.get_or_create_claude_term()
 				claude:send("visual_selection", {
 					decorator = function(text)
 						local result = { question .. "\n\n" }
@@ -63,6 +51,7 @@ return {
 					end,
 					trim = false,
 				})
+				claude:send({ "\r" }, { new_line = false, trim = false })
 			end)
 		end,
 		desc = "Send visual selection to Claude",
