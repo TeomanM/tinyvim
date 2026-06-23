@@ -22,8 +22,8 @@ local function build_previewer(selection, selection_ft)
 		vim.list_extend(lines, selection)
 		table.insert(lines, "```")
 		vim.api.nvim_buf_set_lines(tmpbuf, 0, -1, false, lines)
-		vim.bo[tmpbuf].filetype = "markdown"
 		self:set_preview_buf(tmpbuf)
+		vim.bo[tmpbuf].filetype = "markdown"
 		self.win:update_preview_scrollbar()
 	end
 	function Previewer:gen_winopts()
