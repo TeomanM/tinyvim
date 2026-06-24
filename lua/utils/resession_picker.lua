@@ -11,10 +11,13 @@ function M.make_source(resession)
 	local _, _, branch_color = fzf_utils.ansi_from_hl("Special", "")
 	return function(cb)
 		for _, name in ipairs(resession.list()) do
-			local raw_path, branch = name:match("^(.-)__branch__(.+)$")
-			local display = raw_path
-				and string.format("%-40s  %s", path_color(raw_path:gsub("|", "/")), branch_color(branch:gsub("|", "/")))
-				or name:gsub("|", "/")
+			local path, branch = decode_name(name)
+			local display
+			if name:find("__branch__") then
+				display = string.format("%-40s  %s", path_color(path), branch_color(branch or ""))
+			else
+				display = path
+			end
 			cb(name .. "\t" .. display)
 		end
 	end
@@ -64,7 +67,7 @@ function M.make_previewer()
 
 		section("Status", "diff", git("status --short"))
 		section("Diff Stat", "diff", git("diff --stat HEAD"))
-		section("Commits", "git", git("log --oneline -8"))
+		section("Commits", "", git("log --oneline -8"))
 		section("Directory", "bash", vim.fn.systemlist("ls -la " .. vim.fn.shellescape(path) .. " 2>/dev/null"))
 
 		vim.api.nvim_buf_set_lines(tmpbuf, 0, -1, false, lines)
