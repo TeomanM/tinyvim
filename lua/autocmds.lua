@@ -1,10 +1,11 @@
 local function get_session_name()
-	local name = vim.fn.getcwd()
+	-- encode "/" as "|" so resession's "_" sanitization doesn't make paths ambiguous
+	local cwd = vim.fn.getcwd():gsub("/", "|")
 	local branch = vim.trim(vim.fn.system("git branch --show-current"))
 	if vim.v.shell_error == 0 then
-		return name .. "__branch__" .. branch
+		return cwd .. "__branch__" .. branch:gsub("/", "|")
 	else
-		return name
+		return cwd
 	end
 end
 
