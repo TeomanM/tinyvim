@@ -35,7 +35,6 @@ colorscheme (`catppuccin-mocha`) is set at the end of `init.lua`.
 - `lua/lazy_config.lua` — lazy.nvim options (defaults to `lazy = true`, disables a large set of builtin rtp plugins for startup perf).
 - `lua/plugins/init.lua` — **single flat `LazyPluginSpec[]` list of every plugin**. Each spec either inlines its config or pulls from `lua/plugins/configs/<name>.lua`.
 - `lua/plugins/configs/*.lua` — one file per plugin. Convention: each file `return`s either the `opts` table or a `keys` table (never calls `setup()` directly — lazy.nvim does that).
-- `lua/utils/` — small helpers (e.g. `uuid4.lua`).
 - `neotree-def.lua` (repo root) — a reference dump of neo-tree defaults; not loaded.
 - `neovim_tips/` — markdown tips consumed by the `neovim-tips` plugin.
 

@@ -437,6 +437,7 @@ return {
 			})
 		end,
 	},
+	{ "scottmckendry/cyberdream.nvim", priority = 1000 },
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{
 		"folke/lazydev.nvim",
