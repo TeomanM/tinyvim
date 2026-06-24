@@ -17,8 +17,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
 		local opts = { buffer = ev.buf }
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = opts.buffer, desc = "Go to Declaration" })
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = opts.buffer, desc = "Go to Definition" })
 		vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, { buffer = opts.buffer, desc = "Add Workspace Folder" })
 		vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, { buffer = opts.buffer, desc = "Remove Workspace Folder" })
 		vim.keymap.set("n", "<space>wl", function()
@@ -26,7 +24,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end, { buffer = opts.buffer, desc = "List Workspace Folders" })
 		vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, { buffer = opts.buffer, desc = "Go to Type Definition" })
 		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = opts.buffer, desc = "Rename Symbol" })
-		-- TODO: grX mappings with descriptions
 	end,
 })
 
@@ -63,7 +60,7 @@ local servers = {
 	"html",
 	"cssls",
 	"vtsls",
-    "denols",
+	"denols",
 	"glsl_analyzer",
 	"clangd",
 	"ruff",

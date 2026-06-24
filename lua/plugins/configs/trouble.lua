@@ -10,6 +10,16 @@ return {
 		desc = "LSP Implementations (Trouble)",
 	},
 	{
+		"gd",
+		"<cmd>Trouble lsp_definitions toggle<cr>",
+		desc = "LSP Definitions (Trouble)",
+	},
+	{
+		"gD",
+		"<cmd>Trouble lsp_type_definitions toggle<cr>",
+		desc = "LSP Type Definitions (Trouble)",
+	},
+	{
 		"<leader>gx",
 		"<cmd>Trouble diagnostics toggle<cr>",
 		desc = "Diagnostics (Trouble)",
