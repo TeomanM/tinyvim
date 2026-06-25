@@ -57,7 +57,9 @@ function M.make_previewer()
 		end
 
 		local function section(label, lang, result)
-			if #result == 0 then return end
+			if #result == 0 then
+				return
+			end
 			table.insert(lines, "## " .. label)
 			table.insert(lines, "```" .. lang)
 			vim.list_extend(lines, result)

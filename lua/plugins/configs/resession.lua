@@ -23,13 +23,17 @@ return {
 				actions = {
 					["default"] = function(selected)
 						local name = selected[1]:match("^([^\t]+)")
-						if name then resession.load(name) end
+						if name then
+							resession.load(name)
+						end
 					end,
 					["ctrl-e"] = {
 						fn = function(selected)
 							for _, item in ipairs(selected) do
 								local name = item:match("^([^\t]+)")
-								if name then resession.delete(name) end
+								if name then
+									resession.delete(name)
+								end
 							end
 						end,
 						reload = true,

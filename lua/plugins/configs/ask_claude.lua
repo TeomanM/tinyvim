@@ -33,7 +33,9 @@ local function build_previewer(selection, selection_ft)
 end
 
 local function send(question)
-	if not question or question == "" then return end
+	if not question or question == "" then
+		return
+	end
 	local claude = term_utils.get_or_create_claude_term()
 	claude:send("visual_selection", {
 		decorator = function(text)

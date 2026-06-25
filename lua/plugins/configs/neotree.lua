@@ -57,6 +57,7 @@ return {
 			folder_empty_open = "󰞹",
 			folder_open = "",
 			use_filtered_colors = true,
+			selected = "",
 		},
 		indent = {
 			with_expanders = true,
