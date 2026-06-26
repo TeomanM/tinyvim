@@ -7,7 +7,7 @@
 - Linux or MacOS
 
 ```bash
-git clone https://github.com/NvChad/tinyvim ~/.config/nvim && nvim
+git clone https://github.com/TeomanM/tinyvim ~/.config/nvim && nvim
 ```
 
 Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins
@@ -15,7 +15,7 @@ Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins
 - Windows
 
 ```bash
-git clone https://github.com/NvChad/tinyvim $HOME\AppData\Local\nvim --depth 1 && nvim
+git clone https://github.com/TeomanM/tinyvim $HOME\AppData\Local\nvim --depth 1 && nvim
 ```
 
 Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins
@@ -60,10 +60,6 @@ rm -rf ~/.local/share/nvim && rm -rf ~/.config/nvim/lazy-lock.json
 │       └── term_utils.lua
 └── neovim_tips
 ```
-
-# About
-
-- Dont expect this config to be blazing fast (no hardcore lazyloading is done)!
 
 # Important Plugins used
 
