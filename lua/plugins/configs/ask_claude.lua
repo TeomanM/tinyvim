@@ -7,7 +7,7 @@ local presets = {
 	"Write tests for this code",
 }
 
-local function build_previewer(selection, selection_ft)
+local function build_previewer(selection, selection_ft, filepath)
 	local builtin = require("fzf-lua.previewer.builtin")
 	local Previewer = builtin.base:extend()
 	function Previewer:new(o, opts, fzf_win)
@@ -20,6 +20,10 @@ local function build_previewer(selection, selection_ft)
 		local info = FzfLua.get_info()
 		local header = (entry_str ~= "" and entry_str) or (info and info.query) or ""
 		local lines = header and header ~= "" and { "## " .. header, "" } or {}
+		if filepath and filepath ~= "" then
+			table.insert(lines, "- Path: @" .. filepath)
+			table.insert(lines, "")
+		end
 		table.insert(lines, "```" .. selection_ft)
 		vim.list_extend(lines, selection)
 		table.insert(lines, "```")
@@ -46,7 +50,7 @@ local function build_previewer(selection, selection_ft)
 	return Previewer
 end
 
-local function send(question)
+local function send(question, filepath)
 	if not question or question == "" then
 		return
 	end
@@ -54,6 +58,9 @@ local function send(question)
 	claude:send("visual_selection", {
 		decorator = function(text)
 			local result = { question .. "\n\n" }
+			if filepath and filepath ~= "" then
+				table.insert(result, "- Path: @" .. filepath .. "\n\n")
+			end
 			vim.list_extend(result, text)
 			return result
 		end,
@@ -67,18 +74,19 @@ return {
 	function()
 		vim.cmd("normal! \27")
 		local src_buf = vim.api.nvim_get_current_buf()
+		local filepath = vim.api.nvim_buf_get_name(src_buf)
 		local selection_ft = vim.bo.filetype
 		local start_line = vim.fn.line("'<") - 1
 		local end_line = vim.fn.line("'>")
 		local selection = vim.api.nvim_buf_get_lines(src_buf, start_line, end_line, false)
 		require("fzf-lua").fzf_exec(presets, {
 			prompt = "Ask Claude: ",
-			previewer = build_previewer(selection, selection_ft),
+			previewer = build_previewer(selection, selection_ft, filepath),
 			no_resume = true,
 			actions = {
 				["default"] = function(selected, opts)
 					---@diagnostic disable-next-line: undefined-field
-					send(selected[1] or opts.last_query)
+					send(selected[1] or opts.last_query, filepath)
 				end,
 			},
 		})
