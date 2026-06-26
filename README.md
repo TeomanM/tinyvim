@@ -4,21 +4,11 @@
 
 # Install
 
-- Linux or MacOS
-
 ```bash
 git clone https://github.com/TeomanM/tinyvim ~/.config/nvim && nvim
 ```
 
-Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins
-
-- Windows
-
-```bash
-git clone https://github.com/TeomanM/tinyvim $HOME\AppData\Local\nvim --depth 1 && nvim
-```
-
-Run `:MasonInstallAll` command after lazy.nvim finishes downloading plugins
+Run `:TSInstallAll` after lazy.nvim finishes downloading plugins.
 
 # Reset
 
