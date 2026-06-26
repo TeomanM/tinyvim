@@ -17,7 +17,9 @@ local function build_previewer(selection, selection_ft)
 	end
 	function Previewer:populate_preview_buf(entry_str)
 		local tmpbuf = self:get_tmp_buffer()
-		local lines = { "## " .. entry_str, "" }
+		local info = FzfLua.get_info()
+		local header = (entry_str ~= "" and entry_str) or (info and info.query) or ""
+		local lines = header and header ~= "" and { "## " .. header, "" } or {}
 		table.insert(lines, "```" .. selection_ft)
 		vim.list_extend(lines, selection)
 		table.insert(lines, "```")
@@ -25,6 +27,18 @@ local function build_previewer(selection, selection_ft)
 		self:set_preview_buf(tmpbuf)
 		vim.bo[tmpbuf].filetype = "markdown"
 		self.win:update_preview_scrollbar()
+	end
+	function Previewer:zero()
+		local shell = require("fzf-lua.shell")
+		local act = shell.stringify_data(function()
+			self = self.win._previewer or self
+			vim.defer_fn(function()
+				if self.win and self.win:validate_preview() then
+					self:populate_preview_buf("")
+				end
+			end, self.delay or 0)
+		end, self.opts, "")
+		return string.format("execute-silent(%s)", act)
 	end
 	function Previewer:gen_winopts()
 		return vim.tbl_extend("force", self.winopts, { wrap = true, number = false })
