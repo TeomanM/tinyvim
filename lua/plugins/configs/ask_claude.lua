@@ -65,6 +65,7 @@ local function send(question, filepath)
 			return result
 		end,
 		trim = false,
+        new_line = false,
 	})
 	claude:send({ "\r" }, { new_line = false, trim = false })
 end
@@ -79,6 +80,10 @@ return {
 		local start_line = vim.fn.line("'<") - 1
 		local end_line = vim.fn.line("'>")
 		local selection = vim.api.nvim_buf_get_lines(src_buf, start_line, end_line, false)
+		if filepath and filepath ~= "" then
+			local lines = start_line + 1 == end_line and ("L" .. end_line) or ("L" .. (start_line + 1) .. "-" .. end_line)
+			filepath = filepath .. ":" .. lines
+		end
 		require("fzf-lua").fzf_exec(presets, {
 			prompt = "Ask Claude: ",
 			previewer = build_previewer(selection, selection_ft, filepath),

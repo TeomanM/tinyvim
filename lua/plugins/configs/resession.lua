@@ -28,7 +28,7 @@ return {
 						end
 					end,
 					["ctrl-e"] = {
-						fn = function(selected)
+						fn = function(selected, opts, ctx)
 							for _, item in ipairs(selected) do
 								local name = item:match("^([^\t]+)")
 								if name then

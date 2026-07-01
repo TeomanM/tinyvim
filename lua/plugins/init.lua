@@ -299,7 +299,7 @@ return {
 				},
 			},
 			depth = {
-				initial = 10,
+				initial = 2,
 				min = 1,
 				max = 20,
 			},
