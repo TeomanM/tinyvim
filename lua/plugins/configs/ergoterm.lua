@@ -1,6 +1,6 @@
 ---@module "ergoterm"
 
-local term_utils = require("utils.term_utils")
+local term_utils = require("plugins.utils.term_utils")
 
 return {
 	{
@@ -35,5 +35,14 @@ return {
 		desc = "Toggle Claude Code",
 		mode = { "n", "t" },
 	},
+	{
+		"<M-p>",
+		function()
+			term_utils.get_or_create_pi_term():toggle()
+		end,
+		desc = "Toggle Pi",
+		mode = { "n", "t" },
+	},
 	require("plugins.configs.ask_claude"),
+	require("plugins.configs.ask_pi"),
 }

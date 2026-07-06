@@ -74,14 +74,14 @@ return {
 							return mini_icon ~= nil and mini_hl or ctx.kind_hl
 						end,
 					},
-					label = {
-						text = function(ctx)
-							return require("colorful-menu").blink_components_text(ctx)
-						end,
-						highlight = function(ctx)
-							return require("colorful-menu").blink_components_highlight(ctx)
-						end,
-					},
+					-- label = {
+					-- 	text = function(ctx)
+					-- 		return require("colorful-menu").blink_components_text(ctx)
+					-- 	end,
+					-- 	highlight = function(ctx)
+					-- 		return require("colorful-menu").blink_components_highlight(ctx)
+					-- 	end,
+					-- },
 				},
 			},
 		},
