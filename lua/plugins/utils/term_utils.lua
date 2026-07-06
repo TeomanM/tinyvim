@@ -18,7 +18,8 @@ function M.get_claude_term()
 		return t.name == "claude"
 	end)
 end
-
+---@module "ergoterm"
+---@return Terminal
 function M.get_or_create_claude_term()
 	local claude = M.get_claude_term()
 	if claude == nil then

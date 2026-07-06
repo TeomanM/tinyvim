@@ -4,7 +4,7 @@ return {
 		function()
 			local resession = require("resession")
 			local fzf = require("fzf-lua")
-			local picker = require("utils.resession_picker")
+			local picker = require("plugins.utils.resession_picker")
 
 			if vim.tbl_isempty(resession.list()) then
 				vim.notify("No saved sessions", vim.log.levels.INFO)
