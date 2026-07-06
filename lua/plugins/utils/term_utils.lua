@@ -25,7 +25,7 @@ function M.get_or_create_claude_term()
 	if claude == nil then
 		local ergo = require("ergoterm")
 		claude = ergo:new({
-			cmd = "claude",
+			cmd = vim.o.shell .. " -ic claude",
 			name = "claude",
 			layout = "right",
 			auto_list = false,
@@ -45,7 +45,7 @@ function M.get_or_create_pi_term()
 	end)
 	if pi == nil then
 		pi = ergo:new({
-			cmd = "pi",
+			cmd = vim.o.shell .. " -ic pi",
 			name = "pi",
 			layout = "right",
 			auto_list = false,
