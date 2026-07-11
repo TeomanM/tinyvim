@@ -379,7 +379,26 @@ return {
 	},
 	{
 		"stevearc/resession.nvim",
-		opts = {},
+		opts = {
+			-- scope.nvim gives per-tab buffer lists by unlisting inactive tabs'
+			-- buffers, but resession's default buf_filter only keeps buflisted
+			-- buffers -- so sessions ended up capturing just the current tab.
+			-- Keep any loaded real-file buffer regardless of buflisted so every
+			-- tab's buffers (and window layout) get saved.
+			buf_filter = function(bufnr)
+				local buftype = vim.bo[bufnr].buftype
+				if buftype == "help" then
+					return true
+				end
+				if buftype ~= "" and buftype ~= "acwrite" then
+					return false
+				end
+				if vim.api.nvim_buf_get_name(bufnr) == "" then
+					return false
+				end
+				return vim.bo[bufnr].buflisted or vim.api.nvim_buf_is_loaded(bufnr)
+			end,
+		},
 		keys = require("plugins.configs.resession"),
 	},
 

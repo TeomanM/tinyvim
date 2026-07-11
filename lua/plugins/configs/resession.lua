@@ -28,15 +28,17 @@ return {
 								resession.load(name)
 							end
 						end,
-						["ctrl-e"] = function(selected)
-							for _, item in ipairs(selected) do
-								local name = item:match("^([^\t]+)")
-								if name then
-									resession.delete(name)
+						["ctrl-e"] = {
+							fn = function(selected)
+								for _, item in ipairs(selected) do
+									local name = item:match("^([^\t]+)")
+									if name then
+										resession.delete(name)
+									end
 								end
-							end
-							vim.schedule(open)
-						end,
+							end,
+							reload = true,
+						},
 					},
 				})
 			end
