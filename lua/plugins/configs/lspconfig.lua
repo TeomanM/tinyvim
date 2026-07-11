@@ -62,6 +62,7 @@ local servers = {
 	"vtsls",
 	"denols",
 	"glsl_analyzer",
+	"wgsl_analyzer",
 	"clangd",
 	"ruff",
 	"basedpyright",
