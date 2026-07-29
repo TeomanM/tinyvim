@@ -489,6 +489,16 @@ return {
 			{ "<leader>lpp", "<cmd>LivePreview pick<cr>", desc = "Pick a file to serve" },
 		},
 	},
+	{
+		"mrjones2014/codesettings.nvim",
+		-- You don't need to lazy load this plugin since it already
+		-- lazy loads its constituent parts via `plugin/*` and `ftplugin/*` files
+		lazy = true,
+		event = "InsertEnter",
+		opts = {
+			live_reload = true,
+		},
+	},
 	-- {
 	-- 	"ggml-org/llama.vim",
 	-- 	event = "InsertEnter",

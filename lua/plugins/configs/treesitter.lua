@@ -42,5 +42,6 @@ return {
 		"groovy",
 		"kotlin",
 		"zig",
+		"wgsl",
 	},
 }
