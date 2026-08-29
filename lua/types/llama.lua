@@ -1,0 +1,67 @@
+---@meta
+--- Type stubs for `ggml-org/llama.vim` (`vim.g.llama_config`).
+--- Mirrors `s:default_config` in `autoload/llama.vim`; see `:help llama_config`.
+
+---Show extra info about the inference.
+---@alias LlamaShowInfo
+---| 0 # disabled
+---| 1 # statusline
+---| 2 # inline
+
+---Info message length.
+---@alias LlamaInfoCompact
+---| 0 # full
+---| 1 # short ms and t/s
+---| 2 # remove t/s
+---| 3 # also remove e:, q:, C:
+---| 4 # only c: and r:
+
+---@class LlamaConfig
+---@field endpoint_fim? string llama.cpp server endpoint for FIM completion (default: "http://127.0.0.1:8012/infill")
+---@field endpoint_inst? string llama.cpp server endpoint for instruction completion (default: "http://127.0.0.1:8012/v1/chat/completions")
+---@field profiles? table<string, string> named llama.cpp server base URLs; selecting one sets both endpoints
+---@field profile? string profile selected at startup; empty to use the endpoints directly
+---@field api_key? string llama.cpp server api key (optional)
+---@field model_fim? string model name for FIM completion (optional)
+---@field model_inst? string model name for instruction completion (optional)
+---@field n_prefix? integer lines before the cursor to include in the local prefix (default: 256)
+---@field n_suffix? integer lines after the cursor to include in the local suffix (default: 64)
+---@field n_predict? integer max number of tokens to predict (default: 128)
+---@field n_cmpl? integer completions cached per position; >1 enables cycling with keymap_fim_next/prev (default: 1)
+---@field stop_strings_fim? string[] stop strings for FIM completions
+---@field stop_strings_inst? string[] stop strings for instruction completions
+---@field t_max_prompt_ms? integer max allowed time for prompt processing (not yet supported) (default: 500)
+---@field t_max_predict_ms? integer max allowed time for the prediction (default: 1000)
+---@field show_info? LlamaShowInfo (default: 2)
+---@field info_compact? LlamaInfoCompact (default: 3)
+---@field auto_fim? boolean trigger FIM completion automatically on cursor movement (default: true)
+---@field max_line_suffix? integer skip auto-trigger if more than this many chars sit right of the cursor (default: 8)
+---@field max_cache_keys? integer max number of cached completions kept in result_cache (default: 250)
+---@field enable_at_startup? boolean enable llama.vim functionality at startup (default: true)
+---@field ring_n_chunks? integer max chunks passed as extra context, 0 to disable (default: 16)
+---@field ring_chunk_size? integer max chunk size in lines (default: 64)
+---@field ring_scope? integer range around the cursor (in lines) for gathering chunks after FIM (default: 1024)
+---@field ring_update_ms? integer how often to process queued chunks in normal mode (default: 1000)
+---@field keymap_fim_trigger? string trigger the auto completion (default: "<leader>llf")
+---@field keymap_fim_accept_full? string accept full suggestion (default: "<Tab>")
+---@field keymap_fim_accept_line? string accept line suggestion (default: "<S-Tab>")
+---@field keymap_fim_accept_word? string accept word suggestion (default: "<leader>ll]")
+---@field keymap_fim_next? string cycle to next completion (default: "<C-J>")
+---@field keymap_fim_prev? string cycle to previous completion (default: "<C-K>")
+---@field keymap_inst_trigger? string trigger instruction-based editing (default: "<leader>lli")
+---@field keymap_inst_rerun? string rerun the instruction (default: "<leader>llr")
+---@field keymap_inst_continue? string continue the instruction (default: "<leader>llc")
+---@field keymap_inst_accept? string accept the instruction (default: "<Tab>")
+---@field keymap_inst_cancel? string cancel the instruction (default: "<Esc>")
+---@field keymap_debug_toggle? string toggle the debug pane (default: "<leader>lld")
+---@field endpoint? string @deprecated use `endpoint_fim`
+---@field model? string @deprecated use `model_fim`
+---@field keymap_trigger? string @deprecated use `keymap_fim_trigger`
+---@field keymap_accept_full? string @deprecated use `keymap_fim_accept_full`
+---@field keymap_accept_line? string @deprecated use `keymap_fim_accept_line`
+---@field keymap_accept_word? string @deprecated use `keymap_fim_accept_word`
+---@field keymap_debug? string @deprecated use `keymap_debug_toggle`
+---@field stop_strings? string[] @deprecated use `stop_strings_fim`
+
+---@class vim.var_accessor
+---@field llama_config LlamaConfig

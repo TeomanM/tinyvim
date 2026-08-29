@@ -499,13 +499,59 @@ return {
 			live_reload = true,
 		},
 	},
-	-- {
-	-- 	"ggml-org/llama.vim",
-	-- 	event = "InsertEnter",
-	-- 	init = function()
-	-- 		vim.g.llama_config = {
-	-- 			show_info = false,
-	-- 		}
-	-- 	end,
-	-- },
+	{
+		"ggml-org/llama.vim",
+		event = "InsertEnter",
+		init = function()
+			---@type LlamaConfig
+			vim.g.llama_config = {
+				show_info = 0,
+				endpoint_fim = "http://localhost:8080/infill",
+				-- endpoint_inst = "http://localhost:8080/v1/chat/completions",
+				api_key = "99dcf75f97b6b530902666b033db4093bdfef0fe5befdfcfd9a55e8ad07b90e5",
+				model_fim = "qwen-fim",
+				-- model_inst = "qwen-fim",
+
+				-- Disable every built-in keymap: the inst_* ones are global `nnoremap`s set in
+				-- llama#enable() that permanently clobber <Tab> (bufferline) and <Esc> (:noh), and
+				-- the fim_* ones are unconditional buffer-local `inoremap`s that steal <Tab>/<S-Tab>
+				-- from blink/luasnip whenever a hint is rendered. An empty string is the documented
+				-- "off" value — `nil` would just fall back to the default via extendnew().
+				keymap_fim_trigger = "",
+				keymap_fim_accept_full = "",
+				keymap_fim_accept_line = "",
+				keymap_fim_accept_word = "",
+				keymap_fim_next = "",
+				keymap_fim_prev = "",
+				keymap_debug_toggle = "",
+				keymap_inst_trigger = "",
+				keymap_inst_rerun = "",
+				keymap_inst_continue = "",
+				keymap_inst_accept = "",
+				keymap_inst_cancel = "",
+			}
+		end,
+		config = function()
+			-- Own the accept keys ourselves so they can fall through when no suggestion is shown.
+			local function accept(kind, fallback)
+				return function()
+					if vim.fn["llama#is_fim_hint_shown"]() then
+						return "<C-\\><C-O>:call llama#fim_accept('" .. kind .. "')<CR>"
+					end
+					return fallback
+				end
+			end
+
+			vim.keymap.set("i", "<Tab>", accept("line", "<Tab>"), {
+				expr = true,
+				replace_keycodes = true,
+				desc = "Llama: accept suggestion line",
+			})
+			vim.keymap.set("i", "<M-Tab>", accept("full", "<M-Tab>"), {
+				expr = true,
+				replace_keycodes = true,
+				desc = "Llama: accept full suggestion",
+			})
+		end,
+	},
 }
