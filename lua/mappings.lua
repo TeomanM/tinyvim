@@ -86,6 +86,22 @@ map({ "n", "x" }, "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
 end, { desc = "general format file" })
 
+-- git hunks
+map("n", "]c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "]c", bang = true })
+	else
+		require("gitsigns").nav_hunk("next")
+	end
+end, { desc = "git next hunk" })
+map("n", "[c", function()
+	if vim.wo.diff then
+		vim.cmd.normal({ "[c", bang = true })
+	else
+		require("gitsigns").nav_hunk("prev")
+	end
+end, { desc = "git previous hunk" })
+
 -- terminal
 map("t", "<C-q>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
