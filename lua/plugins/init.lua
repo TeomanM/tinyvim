@@ -460,6 +460,13 @@ return {
 	{ "scottmckendry/cyberdream.nvim", priority = 1000 },
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{
+		"dasupradyumna/midnight.nvim",
+		priority = 1000,
+	},
+	{
+		"yorumicolors/yorumi.nvim",
+	},
+	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
 		opts = {
