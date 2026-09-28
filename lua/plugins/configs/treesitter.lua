@@ -36,6 +36,7 @@ return {
 		"commonlisp",
 		"nix",
 		"qmljs",
+		"qmldir",
 		"teal",
 		"java",
 		"nim",

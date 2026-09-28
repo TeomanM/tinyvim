@@ -73,7 +73,6 @@ local servers = {
 	"oxlint",
 	"docker_language_server",
 	"taplo",
-	"qmlls",
 	"jsonls",
 	"yamlls",
 	"jdtls",
@@ -95,6 +94,9 @@ local lua_lsp_settings = {
 }
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
+
+-- System qmlls matches the Qt that Quickshell is built against; Mason's is an old standalone build
+vim.lsp.config("qmlls", { cmd = { "/usr/lib/qt6/bin/qmlls" } })
 
 -- Not in nvim-lspconfig or mason: configured and enabled by hand, runs straight from npm
 vim.lsp.config("knip", {
@@ -150,6 +152,16 @@ vim.lsp.config("rust-analyzer", {
 			init_params.initializationOptions = config.default_settings[config.name]
 		end
 	end,
+})
+
+-- Initialize schemastore for jsonls
+vim.lsp.config("jsonls", {
+	settings = {
+		json = {
+			schemas = require("schemastore").json.schemas(),
+			validate = true,
+		},
+	},
 })
 
 return servers

@@ -144,12 +144,13 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		---@module "mason-lspconfig"
 		---@type MasonLspconfigSettings
-		opts = {
-			ensure_installed = require("plugins.configs.lspconfig"),
-		},
+		opts = function()
+			return { ensure_installed = require("plugins.configs.lspconfig") }
+		end,
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
 			"neovim/nvim-lspconfig",
+			"b0o/schemastore.nvim",
 		},
 		event = { "BufReadPre", "BufNewFile" },
 		-- lazy = false,
@@ -553,5 +554,8 @@ return {
 				desc = "Llama: accept full suggestion",
 			})
 		end,
+	},
+	{
+		"b0o/schemastore.nvim",
 	},
 }
