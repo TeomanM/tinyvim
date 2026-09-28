@@ -68,9 +68,12 @@ local function build_send(term_name)
 		local term = get_term()
 		term:send("visual_selection", {
 			decorator = function(text)
-				local result = { question .. "\n\n" }
+				-- NOTE: chansend joins list items with a newline, but a literal "\n"
+				-- inside an item is sent as a NUL byte, so blank lines are separate entries.
+				local result = { question, "" }
 				if filepath and filepath ~= "" then
-					table.insert(result, "- Path: @" .. filepath .. "\n\n")
+					table.insert(result, "- Path: @" .. filepath)
+					table.insert(result, "")
 				end
 				vim.list_extend(result, text)
 				return result
