@@ -168,7 +168,8 @@ return {
 		opts = {
 			whitespace = { highlight = { "Whitespace", "NonText" } },
 		},
-		event = { "BufReadPre", "BufNewFile" },
+		-- BufReadPost: loading on BufReadPre triggers E201 when opening the first file from neo-tree
+		event = { "BufReadPost", "BufNewFile" },
 	},
 	-- files finder etc
 	{
