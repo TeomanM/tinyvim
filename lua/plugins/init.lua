@@ -50,6 +50,21 @@ return {
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "main",
 		opts = require("plugins.configs.neotree"),
+		config = function(_, opts)
+			-- ergoterm's WinClosed handler closes the window itself, so neo-tree's close_if_last_window
+			-- WinClosed handler runs afterwards with an invalid window id. Treat invalid windows as floating
+			-- so it bails out early.
+			local utils = require("neo-tree.utils")
+			local is_floating = utils.is_floating
+			---@diagnostic disable-next-line: duplicate-set-field
+			utils.is_floating = function(win_id)
+				if win_id and not vim.api.nvim_win_is_valid(win_id) then
+					return true
+				end
+				return is_floating(win_id)
+			end
+			require("neo-tree").setup(opts)
+		end,
 		keys = {
 			{ "<leader>e", "<cmd>Neotree<cr>", desc = "Open Neotree" },
 			{ "<C-n>", "<cmd>Neotree toggle<CR>", desc = "Neotree Toggle" },
@@ -142,8 +157,6 @@ return {
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
-		---@module "mason-lspconfig"
-		---@type MasonLspconfigSettings
 		opts = function()
 			return { ensure_installed = require("plugins.configs.lspconfig") }
 		end,
@@ -155,7 +168,6 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		-- lazy = false,
 	},
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
 	{
 		"stevearc/conform.nvim",
 		opts = require("plugins.configs.conform"),
@@ -188,7 +200,6 @@ return {
 		dependencies = {
 			"nvim-mini/mini.icons",
 			"nvim-treesitter/nvim-treesitter-context",
-			"mfussenegger/nvim-dap",
 			"MeanderingProgrammer/render-markdown.nvim",
 		},
 		---@module "fzf-lua"
@@ -309,11 +320,8 @@ return {
 	},
 	{
 		"gbprod/yanky.nvim",
-		dependencies = {
-			{ "kkharji/sqlite.lua" },
-		},
 		opts = {
-			ring = { storage = "sqlite" },
+			ring = { storage = "memory" },
 		},
 		-- init is called during startup. Configuration for vim plugins typically should be set in an init function
 		init = function()
