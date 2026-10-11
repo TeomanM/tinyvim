@@ -146,10 +146,10 @@ vim.lsp.config("vtsls", {
 vim.lsp.config("rust-analyzer", {
 	before_init = function(init_params, config)
 		local codesettings = require("codesettings")
-		codesettings.with_local_settings(config.name, config)
+		config.settings = codesettings.with_local_settings(config.name, config).settings
 		-- Some settings must be passed at init time, for example rust-analyzer.workspace.discoverConfig
-		if config.default_settings and config.default_settings[config.name] then
-			init_params.initializationOptions = config.default_settings[config.name]
+		if config.settings and config.settings[config.name] then
+			init_params.initializationOptions = config.settings[config.name]
 		end
 	end,
 })
