@@ -9,6 +9,12 @@ return {
 		["<C-b>"] = { "scroll_documentation_up", "fallback" },
 		["<C-f"] = { "scroll_documentation_down", "fallback" },
 	},
+	signature = {
+		enabled = true,
+		window = {
+			border = "single",
+		},
+	},
 	fuzzy = {
 		implementation = "prefer_rust_with_warning",
 		sorts = {
@@ -40,8 +46,6 @@ return {
 		},
 		menu = {
 			draw = {
-				-- We don't need label_description now because label and label_description are already
-				-- combined together in label by colorful-menu.nvim.
 				columns = { { "kind_icon" }, { "label", gap = 1 } },
 				components = {
 					kind_icon = {
@@ -50,10 +54,10 @@ return {
 								return (require("lspkind").symbol_map[ctx.kind] or "") .. ctx.icon_gap
 							end
 
-							local is_unknown_type =
-								vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
+							local path_type = (ctx.item.data --[[@as { type: string }]]).type
+							local is_unknown_type = vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, path_type)
 							local mini_icon, _ = require("mini.icons").get(
-								is_unknown_type and "os" or ctx.item.data.type,
+								is_unknown_type and "os" or path_type,
 								is_unknown_type and "" or ctx.label
 							)
 
@@ -65,23 +69,23 @@ return {
 								return ctx.kind_hl
 							end
 
-							local is_unknown_type =
-								vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
+							local path_type = (ctx.item.data --[[@as { type: string }]]).type
+							local is_unknown_type = vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, path_type)
 							local mini_icon, mini_hl = require("mini.icons").get(
-								is_unknown_type and "os" or ctx.item.data.type,
+								is_unknown_type and "os" or path_type,
 								is_unknown_type and "" or ctx.label
 							)
 							return mini_icon ~= nil and mini_hl or ctx.kind_hl
 						end,
 					},
-					-- label = {
-					-- 	text = function(ctx)
-					-- 		return require("colorful-menu").blink_components_text(ctx)
-					-- 	end,
-					-- 	highlight = function(ctx)
-					-- 		return require("colorful-menu").blink_components_highlight(ctx)
-					-- 	end,
-					-- },
+					label = {
+						text = function(ctx)
+							return require("colorful-menu").blink_components_text(ctx)
+						end,
+						highlight = function(ctx)
+							return require("colorful-menu").blink_components_highlight(ctx)
+						end,
+					},
 				},
 			},
 		},
