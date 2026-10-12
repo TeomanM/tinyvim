@@ -36,6 +36,28 @@ vim.api.nvim_create_autocmd("DirChanged", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("LspProgress", {
+	callback = function(ev)
+		local value = ev.data.params.value or {}
+		local msg = value.message or "done"
+
+		-- rust analyszer in particular has really long LSP messages so truncate them
+		if #msg > 40 then
+			msg = msg:sub(1, 37) .. "..."
+		end
+		-- :h LspProgress
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		vim.api.nvim_echo({ { msg } }, false, {
+			id = ("lsp.%d.%s"):format(ev.data.client_id, ev.data.params.token),
+			kind = "progress",
+			source = client and client.name or "lsp",
+			title = value.title,
+			status = value.kind ~= "end" and "running" or "success",
+			percent = value.percentage,
+		})
+	end,
+})
+
 if vim.g.neovide then
 	vim.api.nvim_create_autocmd({ "BufEnter", "TermOpen" }, {
 		callback = function()
