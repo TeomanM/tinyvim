@@ -103,6 +103,8 @@ vim.lsp.config("wgsl_analyzer", {
 
 -- System qmlls matches the Qt that Quickshell is built against; Mason's is an old standalone build
 vim.lsp.config("qmlls", { cmd = { "/usr/lib/qt6/bin/qmlls" } })
+-- Not in `servers`, so mason-lspconfig's automatic_enable never sees it
+vim.lsp.enable("qmlls")
 
 -- Not in nvim-lspconfig or mason: configured and enabled by hand, runs straight from npm
 vim.lsp.config("knip", {

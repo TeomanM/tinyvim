@@ -473,9 +473,6 @@ return {
 		priority = 1000,
 	},
 	{
-		"yorumicolors/yorumi.nvim",
-	},
-	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
 		opts = {
