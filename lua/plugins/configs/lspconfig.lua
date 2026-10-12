@@ -95,6 +95,12 @@ local lua_lsp_settings = {
 
 vim.lsp.config("lua_ls", { settings = lua_lsp_settings })
 
+-- wesl.toml marks a WESL package root (resolves `package::` imports); lspconfig's default is wgsl only
+vim.lsp.config("wgsl_analyzer", {
+	filetypes = { "wgsl", "wesl" },
+	root_markers = { "wesl.toml", ".git" },
+})
+
 -- System qmlls matches the Qt that Quickshell is built against; Mason's is an old standalone build
 vim.lsp.config("qmlls", { cmd = { "/usr/lib/qt6/bin/qmlls" } })
 
