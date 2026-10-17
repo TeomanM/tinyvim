@@ -110,7 +110,11 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		opts = {},
+		---@module "treesitter-context"
+		---@type TSContext.UserConfig
+		opts = {
+			multiline_threshold = 2,
+		},
 		lazy = false,
 	},
 	{
@@ -521,6 +525,7 @@ return {
 			vim.g.llama_config = {
 				show_info = 0,
 				endpoint_fim = "http://localhost:8080/infill",
+				enable_at_startup = false,
 				-- endpoint_inst = "http://localhost:8080/v1/chat/completions",
 				api_key = "99dcf75f97b6b530902666b033db4093bdfef0fe5befdfcfd9a55e8ad07b90e5",
 				model_fim = "qwen-fim",
