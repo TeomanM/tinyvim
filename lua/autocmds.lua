@@ -69,3 +69,5 @@ if vim.g.neovide then
 		end,
 	})
 end
+
+require("kitty_paste").setup()
